@@ -26,14 +26,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSION
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
   - _GLOSSINESS_FROM_BASE_ALPHA
   - _SPECULAR_COLOR
->>>>>>> e2e536eacf16c1579ab116d6793c71d887d30382
->>>>>>> a7fa6f9a105be91bfad1398259cedb4884ccc45f
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
