@@ -223,10 +223,70 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5579609060545029399, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4128836222447524716, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3029596446734394588, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1988601069496654411, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -984093917994127304, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 296810961520650386, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
         type: 3}
       propertyPath: m_Name
       value: procedural_city_5 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531882234428945373, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740306797630475775, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870334294901303590, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033985886684887888, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5309167367410047638, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434721059498918776, guid: 63d00ea2046d64a5fb002b856a3bcbc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -345,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &330585544
 AudioListener:
   m_ObjectHideFlags: 0
