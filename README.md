@@ -1,2 +1,1 @@
-# EcoSlayer
-
+# TrashOut
