@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 3f;
+    [Header("Movement")]
+    public float walkSpeed = 3f;
+    public float sprintSpeed = 6f;
     public float rotationSpeed = 10f;
     public Transform cameraTransform;
 
+    [Header("Jump & Gravity")]
+    public float jumpHeight = 1.5f;
+    public float gravity = -9.81f;
+
     private Animator animator;
+    private CharacterController characterController;
+    private float verticalVelocity;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
 
         if (cameraTransform == null)
         {
@@ -19,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
+    {
+        HandleMovement();
+    }
+
+    void HandleMovement()
     {
         float horizontal = 0f;
         float vertical = 0f;
@@ -41,12 +55,33 @@ public class PlayerMovement : MonoBehaviour
         direction.Normalize();
 
         bool isMoving = direction.magnitude > 0f;
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && isMoving;
+
+        float currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
+
+        Vector3 move = direction * currentSpeed;
+
+        // Gravity
+        if (characterController.isGrounded && verticalVelocity < 0f)
+        {
+            verticalVelocity = -2f;
+        }
+
+        // Jump
+        if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
+        {
+            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        verticalVelocity += gravity * Time.deltaTime;
+        move.y = verticalVelocity;
+
+        characterController.Move(move * Time.deltaTime);
 
         if (isMoving)
         {
-            transform.position += direction * moveSpeed * Time.deltaTime;
-
             Quaternion targetRotation = Quaternion.LookRotation(direction);
+
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
