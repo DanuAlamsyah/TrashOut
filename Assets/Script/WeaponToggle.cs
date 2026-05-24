@@ -33,6 +33,11 @@ public class WeaponToggle : MonoBehaviour
 
         if (playerShoot != null)
         {
+            if (!active)
+            {
+                playerShoot.ForceStopAim();
+            }
+
             playerShoot.enabled = active;
         }
     }
