@@ -72,9 +72,17 @@ public class PlayerShoot : MonoBehaviour
             return;
         }
 
+        bool isRunning = false;
+
         if (animator != null)
         {
-            animator.SetTrigger("Shoot");
+            isRunning = animator.GetBool("isRunning");
+
+            // Animasi shoot hanya dimainkan kalau karakter sedang diam
+            if (!isRunning)
+            {
+                animator.SetTrigger("Shoot");
+            }
         }
 
         GameObject bullet = Instantiate(

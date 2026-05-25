@@ -3,6 +3,7 @@ using UnityEngine;
 public class WaterBullet : MonoBehaviour
 {
     public float lifeTime = 2f;
+    public int damage = 1;
 
     [Header("Hit Effects")]
     public GameObject splashParticlePrefab;
@@ -15,7 +16,15 @@ public class WaterBullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        MonsterHealth monster = collision.gameObject.GetComponent<MonsterHealth>();
+
+        if (monster != null)
+        {
+            monster.TakeDamage(damage);
+        }
+
         SpawnHitEffects(collision);
+
         Destroy(gameObject);
     }
 
@@ -41,7 +50,7 @@ public class WaterBullet : MonoBehaviour
             GameObject ring = Instantiate(
                 hitRingPrefab,
                 contact.point + contact.normal * 0.01f,
-                Quaternion.LookRotation(contact.normal)
+                Quaternion.FromToRotation(Vector3.up, contact.normal)
             );
 
             Destroy(ring, 1f);
