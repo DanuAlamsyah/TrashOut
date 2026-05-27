@@ -51,7 +51,7 @@ public class ThirdPersonCamera : MonoBehaviour
         if (Physics.Linecast(targetPosition, desiredPosition, out hit))
         {
             // Geser kamera ke depan sedikit dari dinding
-            desiredPosition = hit.point + hit.normal * 0.2f;
+            desiredPosition = hit.point + hit.normal * 0.5f;
         }
 
         transform.position = Vector3.Lerp(
