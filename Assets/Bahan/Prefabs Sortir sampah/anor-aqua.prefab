@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8917479804635528222}
   - component: {fileID: 558206281632511994}
   m_Layer: 0
-  m_Name: Prefab_WaterBottle_S
+  m_Name: anor-aqua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

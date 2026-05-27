@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7487602873566060827}
   - component: {fileID: -778688856585678426}
   m_Layer: 0
-  m_Name: Prefab_Pizza
+  m_Name: or-pizza
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
