@@ -40,8 +40,19 @@ public class ThirdPersonCamera : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(rotationY, rotationX, 0f);
 
-        Vector3 offset = rotation * new Vector3(0f, 0f, -distance);
-        Vector3 desiredPosition = target.position + Vector3.up * height + offset;
+        Vector3 targetPosition = target.position + Vector3.up * height;
+
+        // Posisi kamera yang diinginkan
+        Vector3 desiredPosition = targetPosition + rotation * new Vector3(0f, 0f, -distance);
+
+        RaycastHit hit;
+
+        // Cek apakah ada objek di antara player dan kamera
+        if (Physics.Linecast(targetPosition, desiredPosition, out hit))
+        {
+            // Geser kamera ke depan sedikit dari dinding
+            desiredPosition = hit.point + hit.normal * 0.2f;
+        }
 
         transform.position = Vector3.Lerp(
             transform.position,
@@ -49,6 +60,6 @@ public class ThirdPersonCamera : MonoBehaviour
             smoothSpeed * Time.deltaTime
         );
 
-        transform.LookAt(target.position + Vector3.up * height);
+        transform.LookAt(targetPosition);
     }
 }
