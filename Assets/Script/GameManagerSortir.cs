@@ -22,7 +22,8 @@ public class GameManagerSortir : MonoBehaviour
     public int konversiSkorKeKoin = 1; 
 
     [Header("Komponen UI Screen")]
-    public TextMeshProUGUI teksSkor; // Kotak tempat narik objek UI teks di Inspector
+    public TextMeshProUGUI teksSkor; // Kotak untuk UI Skor (Pojok Kiri Atas)
+    public TextMeshProUGUI teksWaktu; // BARU: Kotak untuk UI Waktu (Pojok Kanan Atas)
 
     void Awake()
     {
@@ -30,7 +31,6 @@ public class GameManagerSortir : MonoBehaviour
         else Destroy(gameObject);
     }
     
-
     void Start()
     {
         // Panggil fungsi spawn di sini agar sampah pertama LANGSUNG muncul saat play
@@ -41,6 +41,7 @@ public class GameManagerSortir : MonoBehaviour
         gameSelesai = false;
         
         UpdateTeksSkorLayar(); 
+        UpdateTeksWaktuLayar(); // BARU: Set tulisan waktu awal saat play
     }
 
     void Update()
@@ -51,6 +52,7 @@ public class GameManagerSortir : MonoBehaviour
         if (waktuBermain > 0)
         {
             waktuBermain -= Time.deltaTime;
+            UpdateTeksWaktuLayar(); // BARU: Selalu update angka waktu setiap frame jalan
         }
         else
         {
@@ -92,7 +94,7 @@ public class GameManagerSortir : MonoBehaviour
         UpdateTeksSkorLayar(); 
     }
 
-    // Fungsi pembantu untuk memperbarui visual teks di Canvas UI
+    // Fungsi pembantu untuk memperbarui visual teks Skor
     void UpdateTeksSkorLayar()
     {
         if (teksSkor != null)
@@ -101,10 +103,21 @@ public class GameManagerSortir : MonoBehaviour
         }
     }
 
+    // BARU: Fungsi pembantu untuk memperbarui visual teks Waktu (Dibulatkan ke atas)
+    void UpdateTeksWaktuLayar()
+    {
+        if (teksWaktu != null)
+        {
+            // Mathf.CeilToInt digunakan agar angka desimal dibulatkan ke atas (misal 59.4 jadi 60)
+            teksWaktu.text = "Waktu: " + Mathf.CeilToInt(waktuBermain) + "s";
+        }
+    }
+
     void WaktuHabis()
     {
         gameSelesai = true;
         waktuBermain = 0;
+        UpdateTeksWaktuLayar(); // Paksa teks jadi Waktu: 0s
 
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
 
