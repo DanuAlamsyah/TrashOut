@@ -17,6 +17,7 @@ public class MonsterAI : MonoBehaviour
     public float wanderSpeed = 1.2f;
     public float chaseSpeed = 2.5f;
     public float rotationSpeed = 8f;
+    public float gravity = -9.81f;
 
     [Header("Area")]
     public float wanderRadius = 5f;
@@ -33,18 +34,21 @@ public class MonsterAI : MonoBehaviour
 
     private MonsterState currentState;
     private Animator animator;
+    private CharacterController characterController;
 
     private Vector3 startPosition;
     private Vector3 wanderTarget;
 
     private float stateTimer;
     private float attackTimer;
+    private float verticalVelocity;
 
     private PlayerHealth playerHealth;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
 
         startPosition = transform.position;
         PickNewWanderTarget();
@@ -63,6 +67,7 @@ public class MonsterAI : MonoBehaviour
             if (player == null || playerHealth == null)
             {
                 SetMoving(false);
+                ApplyGravityOnly();
                 return;
             }
         }
@@ -71,6 +76,7 @@ public class MonsterAI : MonoBehaviour
         {
             SetMoving(false);
             currentState = MonsterState.Idle;
+            ApplyGravityOnly();
             return;
         }
 
@@ -120,14 +126,10 @@ public class MonsterAI : MonoBehaviour
             playerHealth = player.GetComponent<PlayerHealth>();
 
             if (playerHealth == null)
-            {
                 playerHealth = player.GetComponentInParent<PlayerHealth>();
-            }
 
             if (playerHealth == null)
-            {
                 playerHealth = player.GetComponentInChildren<PlayerHealth>();
-            }
 
             if (playerHealth != null)
             {
@@ -144,14 +146,10 @@ public class MonsterAI : MonoBehaviour
             playerHealth = playerObject.GetComponent<PlayerHealth>();
 
             if (playerHealth == null)
-            {
                 playerHealth = playerObject.GetComponentInParent<PlayerHealth>();
-            }
 
             if (playerHealth == null)
-            {
                 playerHealth = playerObject.GetComponentInChildren<PlayerHealth>();
-            }
 
             if (playerHealth != null)
             {
@@ -172,6 +170,7 @@ public class MonsterAI : MonoBehaviour
     void HandleIdle()
     {
         SetMoving(false);
+        ApplyGravityOnly();
 
         stateTimer += Time.deltaTime;
 
@@ -209,6 +208,7 @@ public class MonsterAI : MonoBehaviour
     {
         SetMoving(false);
         RotateTo(player.position);
+        ApplyGravityOnly();
 
         attackTimer += Time.deltaTime;
 
@@ -238,13 +238,50 @@ public class MonsterAI : MonoBehaviour
         Vector3 direction = targetPosition - transform.position;
         direction.y = 0f;
 
-        if (direction.magnitude <= 0.05f) return;
+        if (direction.magnitude <= 0.05f)
+        {
+            ApplyGravityOnly();
+            return;
+        }
 
         direction.Normalize();
 
-        transform.position += direction * speed * Time.deltaTime;
+        Vector3 move = direction * speed;
+        ApplyGravity(ref move);
+
+        if (characterController != null)
+        {
+            characterController.Move(move * Time.deltaTime);
+        }
+        else
+        {
+            Debug.LogWarning(gameObject.name + " belum punya CharacterController. Monster bisa tembus collider.");
+            transform.position += move * Time.deltaTime;
+        }
 
         RotateTo(targetPosition);
+    }
+
+    void ApplyGravityOnly()
+    {
+        Vector3 move = Vector3.zero;
+        ApplyGravity(ref move);
+
+        if (characterController != null)
+        {
+            characterController.Move(move * Time.deltaTime);
+        }
+    }
+
+    void ApplyGravity(ref Vector3 move)
+    {
+        if (characterController != null && characterController.isGrounded && verticalVelocity < 0f)
+        {
+            verticalVelocity = -2f;
+        }
+
+        verticalVelocity += gravity * Time.deltaTime;
+        move.y = verticalVelocity;
     }
 
     void RotateTo(Vector3 targetPosition)
