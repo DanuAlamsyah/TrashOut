@@ -13,7 +13,6 @@ public class RoadTrashCounterManager : MonoBehaviour
 
     void Start()
     {
-        collectedTrash = 0;
         UpdateCounterUI();
 
         if (interactText != null)
@@ -26,6 +25,12 @@ public class RoadTrashCounterManager : MonoBehaviour
     {
         totalTrash = total;
         collectedTrash = 0;
+        UpdateCounterUI();
+    }
+
+    public void AddTotalTrash(int amount)
+    {
+        totalTrash += amount;
         UpdateCounterUI();
     }
 
