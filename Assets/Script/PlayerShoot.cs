@@ -14,6 +14,11 @@ public class PlayerShoot : MonoBehaviour
     public float aimFOV = 35f;
     public float aimSpeed = 10f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip shotSound;
+    [Range(0f, 3f)] public float shotVolume = 2f;
+
     private Animator animator;
     private float nextFireTime = 0f;
     private bool isAiming = false;
@@ -21,6 +26,19 @@ public class PlayerShoot : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
+            audioSource.spatialBlend = 0f; // 0 = suara 2D, tidak mengecil karena jarak
+            audioSource.volume = 1f;
+        }
 
         if (playerCamera == null)
         {
@@ -78,7 +96,6 @@ public class PlayerShoot : MonoBehaviour
         {
             isRunning = animator.GetBool("isRunning");
 
-            // Animasi shoot hanya dimainkan kalau karakter sedang diam
             if (!isRunning)
             {
                 animator.SetTrigger("Shoot");
@@ -96,6 +113,12 @@ public class PlayerShoot : MonoBehaviour
         if (rb != null)
         {
             rb.velocity = firePoint.forward * bulletSpeed;
+        }
+
+        // Suara tembakan
+        if (audioSource != null && shotSound != null)
+        {
+            audioSource.PlayOneShot(shotSound, shotVolume);
         }
     }
 

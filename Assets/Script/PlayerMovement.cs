@@ -12,6 +12,11 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 1.5f;
     public float gravity = -9.81f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    [Range(0f, 3f)] public float jumpVolume = 2f;
+
     private Animator animator;
     private CharacterController characterController;
     private float verticalVelocity;
@@ -21,7 +26,20 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
 
-        if (cameraTransform == null)
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
+            audioSource.spatialBlend = 0f; // 0 = suara 2D, tidak mengecil karena jarak
+            audioSource.volume = 1f;
+        }
+
+        if (cameraTransform == null && Camera.main != null)
         {
             cameraTransform = Camera.main.transform;
         }
@@ -41,6 +59,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.S)) vertical = -1f;
         if (Input.GetKey(KeyCode.A)) horizontal = -1f;
         if (Input.GetKey(KeyCode.D)) horizontal = 1f;
+
+        if (cameraTransform == null)
+        {
+            Debug.LogWarning("Camera Transform belum diisi di PlayerMovement.");
+            return;
+        }
 
         Vector3 cameraForward = cameraTransform.forward;
         Vector3 cameraRight = cameraTransform.right;
@@ -71,6 +95,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            // Suara jump
+            if (audioSource != null && jumpSound != null)
+            {
+                audioSource.PlayOneShot(jumpSound, jumpVolume);
+            }
         }
 
         verticalVelocity += gravity * Time.deltaTime;
@@ -89,6 +119,9 @@ public class PlayerMovement : MonoBehaviour
             );
         }
 
-        animator.SetBool("isRunning", isMoving);
+        if (animator != null)
+        {
+            animator.SetBool("isRunning", isMoving);
+        }
     }
 }
