@@ -35,6 +35,15 @@ public class SampahMinigame : MonoBehaviour
             // Jika lolos sampai ujung, hancurkan objeknya
             if (Vector3.Distance(transform.position, targetAkhir.position) < 0.5f)
             {
+                // 💥 TAMBAHAN KHUSUS LEVEL 4: Cek jika yang lolos ke ujung adalah BOM!
+                if (gameObject.CompareTag("Bom"))
+                {
+                    if (GameManagerSortir4.Instance != null)
+                    {
+                        GameManagerSortir4.Instance.LedakanBomGameOver();
+                    }
+                }
+
                 Destroy(gameObject);
             }
         }
@@ -49,6 +58,13 @@ public class SampahMinigame : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = true;
+        }
+
+        // 🌟 KUNCI BALIKIN WARNA 3D SAAT DIKLIK:
+        MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
+        if (mr != null)
+        {
+            mr.material.color = Color.white; // Kembalikan ke warna asli materialnya!
         }
     }
 

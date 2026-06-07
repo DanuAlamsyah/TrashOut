@@ -8,6 +8,7 @@ TagManager:
   - Organik
   - Anorganik
   - Batu
+  - Bom
   layers:
   - Default
   - TransparentFX
