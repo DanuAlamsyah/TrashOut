@@ -2091,6 +2091,9 @@ MonoBehaviour:
   normalFOV: 60
   aimFOV: 30
   aimSpeed: 10
+  audioSource: {fileID: 0}
+  shotSound: {fileID: 0}
+  shotVolume: 2
 --- !u!114 &134456151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2109,6 +2112,9 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   jumpHeight: 1.5
   gravity: -9.81
+  audioSource: {fileID: 0}
+  jumpSound: {fileID: 0}
+  jumpVolume: 2
 --- !u!114 &134456153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25755,15 +25761,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalPosition.x

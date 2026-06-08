@@ -2208,10 +2208,10 @@ MonoBehaviour:
   - {fileID: 928832529}
   - {fileID: 1093677690}
   - {fileID: 1979575775}
-  trashCount: 1
+  trashCount: 10
   spawnYOffset: 0.05
   minDistanceBetweenTrash: 5
-  maxSpawnAttempts: 1
+  maxSpawnAttempts: 10
   useRaycastToGround: 1
   groundLayer:
     serializedVersion: 2
@@ -3552,15 +3552,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalPosition.x
