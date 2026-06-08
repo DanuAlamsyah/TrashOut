@@ -28,7 +28,11 @@ public class GameManagerSortir2 : MonoBehaviour
     [Header("Komponen UI Screen")]
     public TextMeshProUGUI teksSkor; 
     public TextMeshProUGUI teksWaktu;
-    public TextMeshProUGUI teksPeringatan; // BARU: Slot untuk menampung TeksPeringatan merah
+    public TextMeshProUGUI teksPeringatan; 
+
+    [Header("Transisi Level Berikutnya")]
+    [Tooltip("Masukkan nama scene level selanjutnya (contoh: Level3)")]
+    public string namaLevelBerikutnya;
 
     [HideInInspector] public float kecepatanSampahGlobal = 1f;
 
@@ -43,7 +47,6 @@ public class GameManagerSortir2 : MonoBehaviour
         kecepatanSampahGlobal = 1f; 
         sudahBoost = false;
 
-        // Pastikan teks peringatan kosong di awal game
         if (teksPeringatan != null) teksPeringatan.text = "";
 
         SpawnSampahAtauBatu(); 
@@ -67,7 +70,6 @@ public class GameManagerSortir2 : MonoBehaviour
                 jedaSpawn = 1.2f; 
                 kecepatanSampahGlobal = 2.2f; 
                 
-                // POP-UP BONUS: Kasih peringatan kalau speed naik!
                 TampilkanPopUpPeringatan("SPEED BOOST!", 1f);
             }
         }
@@ -112,7 +114,6 @@ public class GameManagerSortir2 : MonoBehaviour
         if (skorSaatIni < 0) skorSaatIni = 0; 
         UpdateTeksSkorLayar(); 
         
-        // Peringatan opsional jika salah sortir sampah biasa
         if (nilai < 0)
         {
             TampilkanPopUpPeringatan("SALAH SORTIR! -5", 0.5f);
@@ -122,32 +123,28 @@ public class GameManagerSortir2 : MonoBehaviour
     public void KurangiWaktuBatu()
     {
         if (gameSelesai) return;
-        waktuBermain -= 5f; // Diubah jadi -5s sesuai request kamu
+        waktuBermain -= 5f; 
         if (waktuBermain < 0) waktuBermain = 0;
         
         UpdateTeksWaktuLayar();
-
-        // BARU: Panggil fungsi pop up teks peringatan di layar!
         TampilkanPopUpPeringatan("-5s HINDARI BATU!", 1f);
     }
 
-    // BARU: Fungsi pemicu Coroutine agar pop-up bekerja dinamis
     public void TampilkanPopUpPeringatan(string pesan, float durasiTampil)
     {
         if (teksPeringatan != null)
         {
-            // Hentikan efek pop-up sebelumnya jika masih berjalan agar tidak tumpang tindih
             StopAllCoroutines(); 
             StartCoroutine(ProsesPopUp(pesan, durasiTampil));
         }
     }
 
-    // BARU: Logika hilangnya teks setelah beberapa detik
+    // --- DI SINI SUDAH DIPERBAIKI MENJADI ProsesPopUp ---
     IEnumerator ProsesPopUp(string pesan, float durasi)
     {
         teksPeringatan.text = pesan;
-        yield return new WaitForSeconds(durasi); // Menunggu selama durasi yang ditentukan
-        teksPeringatan.text = ""; // Kosongkan lagi teksnya
+        yield return new WaitForSeconds(durasi); 
+        teksPeringatan.text = ""; 
     }
 
     void UpdateTeksSkorLayar()
@@ -169,8 +166,22 @@ public class GameManagerSortir2 : MonoBehaviour
         waktuBermain = 0;
         if (teksPeringatan != null) teksPeringatan.text = "WAKTU HABIS!";
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
+        
         SelesaiDanKembaliKeGameUtama();
     }
 
-    void SelesaiDanKembaliKeGameUtama() { }
+    void SelesaiDanKembaliKeGameUtama()
+    {
+        Debug.Log("Minigame selesai! Memuat level berikutnya: " + namaLevelBerikutnya);
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.GoToNextLevel(namaLevelBerikutnya);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager utama tidak ditemukan di scene ini. Menggunakan SceneManager biasa.");
+            SceneManager.LoadScene(namaLevelBerikutnya);
+        }
+    }
 }

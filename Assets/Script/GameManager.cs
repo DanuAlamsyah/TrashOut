@@ -19,25 +19,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // private void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Escape)) // Jika memencet tombol Escape
-    //     {
-    //         string currentScene = SceneManager.GetActiveScene().name;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            string currentScene = SceneManager.GetActiveScene().name;
 
-    //         // Jika sedang di MainMenu -> keluar game
-    //         if (currentScene == "mainMenu")
-    //         {
-    //             Application.Quit();
-    //             Debug.Log("Quit Game");
-    //         }
-    //         // Jika sedang di scene lain -> kembali ke MainMenu
-    //         else
-    //         {
-    //             SceneManager.LoadScene("mainMenu");
-    //         }
-    //     }
-    // }
+            // 1. Jika sedang di MainMenu -> keluar game
+            if (currentScene == "mainMenu")
+            {
+                Application.Quit();
+                Debug.Log("Quit Game");
+            }
+            // 2. Jika sedang di scene Sortir -> JANGAN NGAPA-NGAPAIN
+            // (Fitur ini mengecek apakah nama scene dimulai dengan kata "sortir")
+            else if (currentScene.StartsWith("sortir"))
+            {
+                Debug.Log("ESC ditekan di scene sortir. Sistem back ke menu dinonaktifkan.");
+                // Di sini kamu biarkan kosong saja, biar ESC cuma ngurusin kursor
+            }
+            // 3. Jika sedang di scene lain (seperti Level1, Level2, dst) -> kembali ke MainMenu
+            else
+            {
+                SceneManager.LoadScene("mainMenu");
+            }
+        }
+    }
 
     public void NewGame()
     {
@@ -64,5 +71,11 @@ public class GameManager : MonoBehaviour
     public void GoToPilahSampah(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    // Tambahkan fungsi ini di GameManager.cs
+    public void GoToNextLevel(string nextLevelName)
+    {
+        SceneManager.LoadScene(nextLevelName);
     }
 }

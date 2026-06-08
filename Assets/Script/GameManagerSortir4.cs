@@ -35,6 +35,13 @@ public class GameManagerSortir4 : MonoBehaviour
     public TextMeshProUGUI teksWaktu;
     public TextMeshProUGUI teksPeringatan; 
 
+    // --- TAMBAHKAN VARIABEL TRANSISI INI ---
+    [Header("Transisi Level")]
+    [Tooltip("Scene jika berhasil bertahan sampai waktu habis (contoh: mainMenu atau Credits)")]
+    public string namaSceneMenang;
+    [Tooltip("Scene jika kalah karena kena bom (contoh: mainMenu atau GameOver)")]
+    public string namaSceneKalah = "mainMenu";
+
     [HideInInspector] public float kecepatanSampahGlobal = 1.4f; // Start awal lebih ngebut
 
     void Awake()
@@ -153,7 +160,8 @@ public class GameManagerSortir4 : MonoBehaviour
         if (teksPeringatan != null) teksPeringatan.text = "BOOM! GAME OVER!";
         Debug.Log("Game Over! Bom meledak!");
         
-        SelesaiDanKembaliKeGameUtama();
+        // Panggil fungsi dengan status kalah (menang = false)
+        SelesaiDanKembaliKeGameUtama(false);
     }
 
     public void TampilkanPopUpPeringatan(string pesan, float durasi)
@@ -181,8 +189,27 @@ public class GameManagerSortir4 : MonoBehaviour
         waktuBermain = 0;
         if (teksPeringatan != null) teksPeringatan.text = "MISI SORTIR LULUS!";
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
-        SelesaiDanKembaliKeGameUtama();
+        
+        // Panggil fungsi dengan status menang (menang = true)
+        SelesaiDanKembaliKeGameUtama(true);
     }
 
-    void SelesaiDanKembaliKeGameUtama() { }
+    // --- FUNGSI TRANSISI YANG SUDAH DIPERBARUI ---
+    void SelesaiDanKembaliKeGameUtama(bool menang)
+    {
+        // Tentukan scene tujuan berdasarkan menang atau kalah
+        string sceneTujuan = menang ? namaSceneMenang : namaSceneKalah;
+        
+        Debug.Log("Memuat scene: " + sceneTujuan);
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.GoToNextLevel(sceneTujuan);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager utama tidak ditemukan. Menggunakan SceneManager.");
+            SceneManager.LoadScene(sceneTujuan);
+        }
+    }
 }

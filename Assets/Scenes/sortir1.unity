@@ -276,6 +276,7 @@ MonoBehaviour:
   konversiSkorKeKoin: 1
   teksSkor: {fileID: 1054060898}
   teksWaktu: {fileID: 1109737277}
+  namaLevelBerikutnya: level2
 --- !u!4 &295203077
 Transform:
   m_ObjectHideFlags: 0
