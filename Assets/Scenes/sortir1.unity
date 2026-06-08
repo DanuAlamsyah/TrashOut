@@ -269,7 +269,7 @@ MonoBehaviour:
   - {fileID: 2254700094436937765, guid: fb6c29cce80e3144e9e0adfb7a8a2840, type: 3}
   - {fileID: 3230034147011233538, guid: 9cc82edf5bfb8ce45b41303a3c99f3d1, type: 3}
   - {fileID: 3016437080816719917, guid: 827ae94a946dc8446b7f1b500f49cd07, type: 3}
-  jedaSpawn: 5
+  jedaSpawn: 3
   waktuBermain: 60
   skorSaatIni: 0
   totalKoinDidapat: 0
