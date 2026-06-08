@@ -5103,6 +5103,7 @@ MonoBehaviour:
   collectedTrash: 0
   trashCounterText: {fileID: 1245118460}
   interactText: {fileID: 1048068928}
+  nextSceneName: sortir2
 --- !u!114 &510319566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17437,10 +17438,10 @@ MonoBehaviour:
   - {fileID: 1817338713}
   - {fileID: 0}
   - {fileID: 0}
-  trashCount: 100
+  trashCount: 30
   spawnYOffset: 0.2
   minDistanceBetweenTrash: 1.5
-  maxSpawnAttempts: 100
+  maxSpawnAttempts: 30
   useRaycastToGround: 1
   groundLayer:
     serializedVersion: 2
@@ -19252,7 +19253,7 @@ Transform:
   m_GameObject: {fileID: 1931338648}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000115202326, y: -0.7071068, z: 0.7071068, w: -0.000000115202326}
-  m_LocalPosition: {x: 28.099995, y: 20, z: 17.300009}
+  m_LocalPosition: {x: 24.2, y: 24.2, z: 17.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

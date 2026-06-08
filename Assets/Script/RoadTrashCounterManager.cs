@@ -11,6 +11,11 @@ public class RoadTrashCounterManager : MonoBehaviour
     public TMP_Text trashCounterText;
     public GameObject interactText;
 
+    // --- TAMBAHKAN VARIABEL INI ---
+    [Header("Level Transition")]
+    [Tooltip("Masukkan nama scene pilah sampah khusus untuk level ini")]
+    public string nextSceneName; 
+
     void Start()
     {
         UpdateCounterUI();
@@ -46,7 +51,18 @@ public class RoadTrashCounterManager : MonoBehaviour
 
         if (collectedTrash >= totalTrash)
         {
-            Debug.Log("Semua sampah sudah dikumpulkan!");
+            Debug.Log("Semua sampah sudah dikumpulkan! Pindah ke: " + nextSceneName);
+            
+            // --- UBAH BAGIAN INI ---
+            if (GameManager.Instance != null)
+            {
+                // Kirim nama scene yang sudah diatur di Inspector ke GameManager
+                GameManager.Instance.GoToPilahSampah(nextSceneName);
+            }
+            else
+            {
+                Debug.LogWarning("GameManager tidak ditemukan di scene!");
+            }
         }
     }
 
