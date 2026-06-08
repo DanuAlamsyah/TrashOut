@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) // Jika memencet tombol Escape
         {
             string currentScene = SceneManager.GetActiveScene().name;
 
@@ -58,5 +58,11 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Quit Game");
+    }
+
+    // Ubah fungsi yang paling bawah menjadi seperti ini:
+    public void GoToPilahSampah(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
