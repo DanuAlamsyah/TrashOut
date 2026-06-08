@@ -19,25 +19,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) // Jika memencet tombol Escape
-        {
-            string currentScene = SceneManager.GetActiveScene().name;
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Escape)) // Jika memencet tombol Escape
+    //     {
+    //         string currentScene = SceneManager.GetActiveScene().name;
 
-            // Jika sedang di MainMenu -> keluar game
-            if (currentScene == "mainMenu")
-            {
-                Application.Quit();
-                Debug.Log("Quit Game");
-            }
-            // Jika sedang di scene lain -> kembali ke MainMenu
-            else
-            {
-                SceneManager.LoadScene("mainMenu");
-            }
-        }
-    }
+    //         // Jika sedang di MainMenu -> keluar game
+    //         if (currentScene == "mainMenu")
+    //         {
+    //             Application.Quit();
+    //             Debug.Log("Quit Game");
+    //         }
+    //         // Jika sedang di scene lain -> kembali ke MainMenu
+    //         else
+    //         {
+    //             SceneManager.LoadScene("mainMenu");
+    //         }
+    //     }
+    // }
 
     public void NewGame()
     {
