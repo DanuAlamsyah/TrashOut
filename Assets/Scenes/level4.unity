@@ -5103,7 +5103,7 @@ MonoBehaviour:
   collectedTrash: 0
   trashCounterText: {fileID: 1245118460}
   interactText: {fileID: 1048068928}
-  nextSceneName: sortir3
+  nextSceneName: sortir4
 --- !u!114 &510319566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11221,7 +11221,7 @@ Transform:
   m_GameObject: {fileID: 1186191048}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17216258, y: 0.12854317, z: -0.022665627, w: 0.9763827}
-  m_LocalPosition: {x: -24, y: 3, z: -6}
+  m_LocalPosition: {x: -2, y: 3, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15703,18 +15703,6 @@ PrefabInstance:
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
       propertyPath: m_LocalPosition.x

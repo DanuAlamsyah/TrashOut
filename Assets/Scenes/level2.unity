@@ -2208,10 +2208,10 @@ MonoBehaviour:
   - {fileID: 928832529}
   - {fileID: 1093677690}
   - {fileID: 1979575775}
-  trashCount: 1
+  trashCount: 20
   spawnYOffset: 0.05
   minDistanceBetweenTrash: 5
-  maxSpawnAttempts: 1
+  maxSpawnAttempts: 20
   useRaycastToGround: 1
   groundLayer:
     serializedVersion: 2
@@ -4677,7 +4677,7 @@ MonoBehaviour:
   collectedTrash: 0
   trashCounterText: {fileID: 597129087}
   interactText: {fileID: 1013821746}
-  nextSceneName: sortir1
+  nextSceneName: sortir2
 --- !u!114 &737456192
 MonoBehaviour:
   m_ObjectHideFlags: 0
