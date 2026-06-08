@@ -2158,22 +2158,15 @@ MonoBehaviour:
   - {fileID: 979278383}
   - {fileID: 730242152}
   - {fileID: 2111658601}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1646675558}
   - {fileID: 383434020}
-  - {fileID: 0}
   - {fileID: 928832529}
   - {fileID: 1093677690}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  trashCount: 100
+  - {fileID: 1979575775}
+  trashCount: 20
   spawnYOffset: 0.2
   minDistanceBetweenTrash: 1.5
-  maxSpawnAttempts: 100
+  maxSpawnAttempts: 20
   useRaycastToGround: 1
   groundLayer:
     serializedVersion: 2
