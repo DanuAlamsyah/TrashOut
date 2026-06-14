@@ -108,34 +108,33 @@ public class GameManagerSortir : MonoBehaviour
 
     void WaktuHabis()
     {
+        if (gameSelesai) return;
+
         gameSelesai = true;
+
         waktuBermain = 0;
-        UpdateTeksWaktuLayar(); 
+        UpdateTeksWaktuLayar();
 
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
 
         Debug.Log("--- MINIGAME SELESAI ---");
         Debug.Log("Total Skor Akhir: " + skorSaatIni);
-        Debug.Log("Koin yang Kamu Dapatkan: " + totalKoinDidapat);
-        
+        Debug.Log("Koin Didapat: " + totalKoinDidapat);
+
         SelesaiDanKembaliKeGameUtama();
     }
 
-    // --- UBAH FUNGSI INI ---
     void SelesaiDanKembaliKeGameUtama()
     {
-        Debug.Log("Waktu habis! Memuat level berikutnya: " + namaLevelBerikutnya);
-
-        // Panggil GameManager utama yang punya DontDestroyOnLoad untuk pindah scene
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.GoToNextLevel(namaLevelBerikutnya);
+            GameManager.Instance.UnlockNextLevel();
+
+            SceneManager.LoadScene("LevelSelect");
         }
         else
         {
-            // Fallback otomatis jika kamu play langsung dari scene sortir tanpa melalui Main Menu
-            Debug.LogWarning("GameManager utama tidak ditemukan di scene ini. Menggunakan SceneManager biasa.");
-            SceneManager.LoadScene(namaLevelBerikutnya);
+            SceneManager.LoadScene("LevelSelect");
         }
     }
 }

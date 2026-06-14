@@ -161,16 +161,15 @@ public class GameManagerSortir3 : MonoBehaviour
     // --- UBAH FUNGSI INI ---
     void SelesaiDanKembaliKeGameUtama()
     {
-        Debug.Log("Minigame 3 selesai! Memuat level berikutnya: " + namaLevelBerikutnya);
-
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.GoToNextLevel(namaLevelBerikutnya);
+            GameManager.Instance.UnlockNextLevel();
+
+            SceneManager.LoadScene("LevelSelect");
         }
         else
         {
-            Debug.LogWarning("GameManager utama tidak ditemukan di scene ini. Menggunakan SceneManager biasa.");
-            SceneManager.LoadScene(namaLevelBerikutnya);
+            SceneManager.LoadScene("LevelSelect");
         }
     }
 }

@@ -5,9 +5,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public int currentLevel = 1;
+
     private void Awake()
     {
-        // Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -19,41 +20,54 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            string currentScene = SceneManager.GetActiveScene().name;
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Escape))
+    //     {
+    //         string currentScene = SceneManager.GetActiveScene().name;
 
-            // 1. Jika sedang di MainMenu -> keluar game
-            if (currentScene == "mainMenu")
-            {
-                Application.Quit();
-                Debug.Log("Quit Game");
-            }
-            // 2. Jika sedang di scene Sortir -> JANGAN NGAPA-NGAPAIN
-            // (Fitur ini mengecek apakah nama scene dimulai dengan kata "sortir")
-            else if (currentScene.StartsWith("sortir"))
-            {
-                Debug.Log("ESC ditekan di scene sortir. Sistem back ke menu dinonaktifkan.");
-                // Di sini kamu biarkan kosong saja, biar ESC cuma ngurusin kursor
-            }
-            // 3. Jika sedang di scene lain (seperti Level1, Level2, dst) -> kembali ke MainMenu
-            else
-            {
-                SceneManager.LoadScene("mainMenu");
-            }
+    //         if (currentScene == "MainMenu")
+    //         {
+    //             Application.Quit();
+    //         }
+    //         else
+    //         {
+    //             SceneManager.LoadScene("MainMenu");
+    //         }
+    //     }
+    // }
+
+    public void SetCurrentLevel(int level)
+    {
+        currentLevel = level;
+    }
+
+    public void UnlockNextLevel()
+    {
+        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+
+        if (currentLevel >= unlockedLevel)
+        {
+            PlayerPrefs.SetInt("UnlockedLevel", currentLevel + 1);
+            PlayerPrefs.Save();
+
+            Debug.Log("Level " + (currentLevel + 1) + " terbuka!");
         }
+    }
+
+    public void BackToLevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void NewGame()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void ContinueGame()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void OpenCredits()
@@ -64,7 +78,6 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        Debug.Log("Quit Game");
     }
 
     // Ubah fungsi yang paling bawah menjadi seperti ini:

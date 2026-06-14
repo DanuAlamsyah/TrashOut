@@ -198,18 +198,15 @@ public class GameManagerSortir4 : MonoBehaviour
     void SelesaiDanKembaliKeGameUtama(bool menang)
     {
         // Tentukan scene tujuan berdasarkan menang atau kalah
-        string sceneTujuan = menang ? namaSceneMenang : namaSceneKalah;
-        
-        Debug.Log("Memuat scene: " + sceneTujuan);
-
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.GoToNextLevel(sceneTujuan);
+            GameManager.Instance.UnlockNextLevel();
+
+            SceneManager.LoadScene("LevelSelect");
         }
         else
         {
-            Debug.LogWarning("GameManager utama tidak ditemukan. Menggunakan SceneManager.");
-            SceneManager.LoadScene(sceneTujuan);
+            SceneManager.LoadScene("LevelSelect");
         }
     }
 }
