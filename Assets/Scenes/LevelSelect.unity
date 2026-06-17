@@ -1359,7 +1359,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 668968131}
         m_TargetAssemblyTypeName: LevelMenu, Assembly-CSharp
-        m_MethodName: PemicuTombolBack
+        m_MethodName: KembaliKeMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
