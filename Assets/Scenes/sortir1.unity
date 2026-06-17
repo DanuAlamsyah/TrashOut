@@ -409,6 +409,7 @@ MonoBehaviour:
   konversiSkorKeKoin: 1
   teksSkor: {fileID: 1054060898}
   teksWaktu: {fileID: 1109737277}
+  namaLevelBerikutnya: LevelSelect
 --- !u!4 &295203077
 Transform:
   m_ObjectHideFlags: 0
@@ -1831,6 +1832,50 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1020780168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1020780170}
+  - component: {fileID: 1020780169}
+  m_Layer: 0
+  m_Name: ManagerSortir
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1020780169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020780168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 415c982fbd88c47ffb63199328dc686e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1020780170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020780168}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.1935453, y: 0.6686716, z: 0.20277405}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1043909761
 GameObject:
   m_ObjectHideFlags: 0
@@ -3478,6 +3523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e02b58f6272fec438b8a3414bcfacf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevel: 1
 --- !u!4 &2129279145
 Transform:
   m_ObjectHideFlags: 0
@@ -3509,3 +3555,4 @@ SceneRoots:
   - {fileID: 1043909764}
   - {fileID: 2026059623}
   - {fileID: 2129279145}
+  - {fileID: 1020780170}

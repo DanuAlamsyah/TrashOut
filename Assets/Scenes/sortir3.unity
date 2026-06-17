@@ -336,6 +336,7 @@ MonoBehaviour:
   teksSkor: {fileID: 1054060898}
   teksWaktu: {fileID: 1109737277}
   teksPeringatan: {fileID: 1022179670}
+  namaLevelBerikutnya: level4
   kecepatanSampahGlobal: 1.2
   peluangSampahHitam: 75
 --- !u!1 &307295852

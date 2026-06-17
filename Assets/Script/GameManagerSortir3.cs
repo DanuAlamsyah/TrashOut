@@ -28,6 +28,11 @@ public class GameManagerSortir3 : MonoBehaviour
     public TextMeshProUGUI teksWaktu;
     public TextMeshProUGUI teksPeringatan;
 
+    // --- TAMBAHKAN VARIABEL INI ---
+    [Header("Transisi Level Berikutnya")]
+    [Tooltip("Masukkan nama scene level selanjutnya (contoh: Level4)")]
+    public string namaLevelBerikutnya;
+
     [HideInInspector] public float kecepatanSampahGlobal = 1.2f; 
 
     void Awake()
@@ -153,5 +158,18 @@ public class GameManagerSortir3 : MonoBehaviour
         SelesaiDanKembaliKeGameUtama();
     }
 
-    void SelesaiDanKembaliKeGameUtama() { }
+    // --- UBAH FUNGSI INI ---
+    void SelesaiDanKembaliKeGameUtama()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.UnlockNextLevel();
+
+            SceneManager.LoadScene("LevelSelect");
+        }
+        else
+        {
+            SceneManager.LoadScene("LevelSelect");
+        }
+    }
 }
