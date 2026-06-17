@@ -1,5 +1,6 @@
 using UnityEngine;
-using TMPro; // Wajib ada untuk mengontrol teks armor di layar
+using TMPro;
+using UnityEngine.SceneManagement; // Wajib ada untuk berpindah Scene
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,8 +9,12 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
 
     [Header("Armor System (Reward Sortir)")]
-    public int currentArmor = 0; 
-    public TextMeshProUGUI teksArmorLayar; // Tarik objek UI Text ke sini di Inspector
+    public int currentArmor = 0;
+    public TextMeshProUGUI teksArmorLayar;
+
+    [Header("UI Game Over")]
+    public GameObject gameOverPanel;
+    public string namaSceneMenu = "mainMenu"; // Ketik nama scene menu kamu di Inspector nanti
 
     [Header("State")]
     public bool isDead = false;
@@ -22,9 +27,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        // 🛡️ Ambil data armor hasil belanja sortir. Jika gak beli, otomatis 0.
-        currentArmor = PlayerPrefs.GetInt("NilaiArmorPemain", 0);
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
 
+        currentArmor = PlayerPrefs.GetInt("NilaiArmorPemain", 0);
         currentHealth = maxHealth;
 
         animator = GetComponent<Animator>();
@@ -33,41 +41,31 @@ public class PlayerHealth : MonoBehaviour
         playerShoot = GetComponent<PlayerShoot>();
         weaponToggle = GetComponent<WeaponToggle>();
 
-        // Tampilkan teks armor di awal level
         UpdateTeksArmorLayar();
-
-        Debug.Log("PlayerHealth aktif. HP Player: " + currentHealth + " | Armor: " + currentArmor);
     }
 
     public void TakeDamage(int damage)
     {
         if (isDead) return;
 
-        // 🛡️ Logika Filter Tameng Armor
         if (currentArmor > 0)
         {
             currentArmor -= damage;
-            Debug.Log("Armor menahan serangan! Sisa Armor: " + currentArmor);
-
             if (currentArmor < 0)
             {
                 int sisaDamage = Mathf.Abs(currentArmor);
                 currentArmor = 0;
                 currentHealth -= sisaDamage;
-                Debug.Log("Armor hancur! Sisa damage memotong HP. Sisa HP: " + currentHealth);
             }
         }
         else
         {
             currentHealth -= damage;
-            Debug.Log("Player terkena damage langsung. Sisa HP: " + currentHealth);
         }
 
-        // 💾 Simpan perubahan sisa armor secara jujur ke memori agar terbawa ke level berikutnya
         PlayerPrefs.SetInt("NilaiArmorPemain", currentArmor);
         PlayerPrefs.Save();
 
-        // Perbarui visual teks di layar HP
         UpdateTeksArmorLayar();
 
         if (currentHealth <= 0)
@@ -83,12 +81,12 @@ public class PlayerHealth : MonoBehaviour
             if (currentArmor > 0)
             {
                 teksArmorLayar.text = "Armor: " + currentArmor;
-                teksArmorLayar.gameObject.SetActive(true); // Muncul jika armor ada
+                teksArmorLayar.gameObject.SetActive(true);
             }
             else
             {
                 teksArmorLayar.text = "Armor: 0";
-                teksArmorLayar.gameObject.SetActive(false); // Sembunyi jika armor habis
+                teksArmorLayar.gameObject.SetActive(false);
             }
         }
     }
@@ -100,14 +98,11 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         currentHealth = 0;
         currentArmor = 0;
-        
-        // Reset data armor di memori karena player sudah mati/gagal
+
         PlayerPrefs.SetInt("NilaiArmorPemain", 0);
         PlayerPrefs.Save();
-        
-        UpdateTeksArmorLayar();
 
-        Debug.Log("Player mati.");
+        UpdateTeksArmorLayar();
 
         if (animator != null)
         {
@@ -119,5 +114,32 @@ public class PlayerHealth : MonoBehaviour
         if (playerShoot != null) playerShoot.enabled = false;
         if (weaponToggle != null) weaponToggle.enabled = false;
         if (characterController != null) characterController.enabled = false;
+
+        Invoke("ShowGameOverPopUp", 1.5f);
+    }
+
+    void ShowGameOverPopUp()
+    {
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    // --- FUNGSI UNTUK TOMBOL ---
+
+    public void ButtonMainLagi()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ButtonKeluar()
+    {
+        Debug.Log("Kembali ke Menu Utama...");
+        // Memuat scene berdasarkan nama yang kamu tulis di Inspector
+        SceneManager.LoadScene(namaSceneMenu);
     }
 }
