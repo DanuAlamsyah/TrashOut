@@ -54,5 +54,7 @@ public class LevelMenu : MonoBehaviour
         PlayerPrefs.Save();
 
         Debug.Log("Progress berhasil direset!");
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
