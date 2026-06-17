@@ -42,7 +42,7 @@ public class GameManagerSortir4 : MonoBehaviour
     [Tooltip("Scene jika kalah karena kena bom (contoh: mainMenu atau GameOver)")]
     public string namaSceneKalah = "mainMenu";
 
-    [HideInInspector] public float kecepatanSampahGlobal = 1.4f; // Start awal lebih ngebut
+    [HideInInspector] public float kecepatanSampahGlobal = 2.7f; // Start awal lebih ngebut
 
     void Awake()
     {
@@ -52,7 +52,7 @@ public class GameManagerSortir4 : MonoBehaviour
 
     void Start()
     {
-        kecepatanSampahGlobal = 1.4f; 
+        kecepatanSampahGlobal = 2.7f; 
         sudahBoost = false;
         if (teksPeringatan != null) teksPeringatan.text = "";
 
@@ -77,8 +77,8 @@ public class GameManagerSortir4 : MonoBehaviour
             if (waktuBermain <= 15f && !sudahBoost)
             {
                 sudahBoost = true;
-                jedaSpawn = 0.8f; 
-                kecepatanSampahGlobal = 3.0f; 
+                jedaSpawn = 1f; 
+                kecepatanSampahGlobal = 3.3f; 
                 TampilkanPopUpPeringatan("FINAL RUSH!!!", 1.5f);
             }
         }
@@ -183,15 +183,27 @@ public class GameManagerSortir4 : MonoBehaviour
     void UpdateTeksSkorLayar() { if (teksSkor != null) teksSkor.text = "Skor: " + skorSaatIni; }
     void UpdateTeksWaktuLayar() { if (teksWaktu != null) teksWaktu.text = "Waktu: " + Mathf.CeilToInt(waktuBermain) + "s"; }
 
+    // Di dalam GameManagerSortir4.cs
     void WaktuHabis()
     {
+        if (gameSelesai) return;
         gameSelesai = true;
         waktuBermain = 0;
-        if (teksPeringatan != null) teksPeringatan.text = "MISI SORTIR LULUS!";
+        UpdateTeksWaktuLayar(); 
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
-        
-        // Panggil fungsi dengan status menang (menang = true)
-        SelesaiDanKembaliKeGameUtama(true);
+
+        // 🔒 1. Panggil fungsi tim di background
+        if (GameManager.Instance != null) GameManager.Instance.UnlockNextLevel();
+
+        // 💥 2. Panggil Toko Reward (Sesuaikan string belakangnya jadi "sortir4")
+        if (GlobalRewardManager.Instance != null)
+        {
+            GlobalRewardManager.Instance.MunculkanPopUpReward(skorSaatIni, "sortir4");
+        }
+        else
+        {
+            SceneManager.LoadScene("LevelSelect"); 
+        }
     }
 
     // --- FUNGSI TRANSISI YANG SUDAH DIPERBARUI ---

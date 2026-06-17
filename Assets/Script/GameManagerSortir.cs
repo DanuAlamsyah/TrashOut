@@ -76,7 +76,7 @@ public class GameManagerSortir : MonoBehaviour
         GameObject sampahBaru = Instantiate(prefabSampah[randomSampah], spawnPoint.position, Quaternion.identity);
 
         SampahMinigame komponenGerak = sampahBaru.AddComponent<SampahMinigame>();
-        komponenGerak.kecepatanJalan = 1f; 
+        komponenGerak.kecepatanJalan = 2f; 
     }
 
     public void TambahSkor(int nilai)
@@ -111,47 +111,37 @@ public class GameManagerSortir : MonoBehaviour
         if (gameSelesai) return;
 
         gameSelesai = true;
-
         waktuBermain = 0;
         UpdateTeksWaktuLayar(); 
 
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
 
         Debug.Log("--- MINIGAME SORTIR 1 SELESAI ---");
+        Debug.Log("Total Skor Akhir: " + skorSaatIni);
+        Debug.Log("Koin Didapat: " + totalKoinDidapat);
 
-        // 💥 HUBUNGKAN KE SYSTEM REWARD TOKO GLOBAL DI SINI:
+        // 🔒 1. Panggil fungsi tim di background (Buka kunci level selanjutnya)
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.UnlockNextLevel();
+        }
+
+        // 💥 2. Munculkan Pop-Up Toko Reward kamu (Layar berhenti di sini, gak langsung pindah!)
         if (GlobalRewardManager.Instance != null)
         {
-            // Kirim skor akhir sortir 1 dan identitas nama scene sortirnya
             GlobalRewardManager.Instance.MunculkanPopUpReward(skorSaatIni, "sortir1");
         }
         else
         {
-            // Backup cadangan jika kamu lupa pasang prefab PanelReward di scene
+            // Hanya jadi cadangan kalau kamu beneran lupa pasang prefab Toko di scene
             SelesaiDanKembaliKeGameUtama(); 
         }
-        UpdateTeksWaktuLayar();
-
-        totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
-
-        Debug.Log("--- MINIGAME SELESAI ---");
-        Debug.Log("Total Skor Akhir: " + skorSaatIni);
-        Debug.Log("Koin Didapat: " + totalKoinDidapat);
-
-        SelesaiDanKembaliKeGameUtama();
     }
 
+    // Fungsi backup bawaan dari tim (hanya dipanggil kalau toko reward tidak ada)
     void SelesaiDanKembaliKeGameUtama()
     {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.UnlockNextLevel();
-
-            SceneManager.LoadScene("LevelSelect");
-        }
-        else
-        {
-            SceneManager.LoadScene("LevelSelect");
-        }
+        SceneManager.LoadScene("LevelSelect");
     }
+
 }
