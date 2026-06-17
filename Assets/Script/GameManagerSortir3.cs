@@ -33,7 +33,7 @@ public class GameManagerSortir3 : MonoBehaviour
     [Tooltip("Masukkan nama scene level selanjutnya (contoh: Level4)")]
     public string namaLevelBerikutnya;
 
-    [HideInInspector] public float kecepatanSampahGlobal = 1.2f; 
+    [HideInInspector] public float kecepatanSampahGlobal = 2.7f; 
 
     void Awake()
     {
@@ -43,7 +43,7 @@ public class GameManagerSortir3 : MonoBehaviour
 
     void Start()
     {
-        kecepatanSampahGlobal = 1.2f; 
+        kecepatanSampahGlobal = 2.7f; 
         if (teksPeringatan != null) teksPeringatan.text = "";
 
         SpawnObjekMisterius(); 
@@ -149,13 +149,27 @@ public class GameManagerSortir3 : MonoBehaviour
     void UpdateTeksSkorLayar() { if (teksSkor != null) teksSkor.text = "Skor: " + skorSaatIni; }
     void UpdateTeksWaktuLayar() { if (teksWaktu != null) teksWaktu.text = "Waktu: " + Mathf.CeilToInt(waktuBermain) + "s"; }
 
+    // Di dalam GameManagerSortir2.cs
     void WaktuHabis()
     {
+        if (gameSelesai) return;
         gameSelesai = true;
         waktuBermain = 0;
-        if (teksPeringatan != null) teksPeringatan.text = "SORTIR 3 SELESAI!";
+        UpdateTeksWaktuLayar(); 
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
-        SelesaiDanKembaliKeGameUtama();
+
+        // 🔒 1. Panggil fungsi tim di background
+        if (GameManager.Instance != null) GameManager.Instance.UnlockNextLevel();
+
+        // 💥 2. Panggil Toko Reward (Sesuaikan string belakangnya jadi "sortir2")
+        if (GlobalRewardManager.Instance != null)
+        {
+            GlobalRewardManager.Instance.MunculkanPopUpReward(skorSaatIni, "sortir3");
+        }
+        else
+        {
+            SceneManager.LoadScene("LevelSelect"); 
+        }
     }
 
     // --- UBAH FUNGSI INI ---

@@ -2208,7 +2208,7 @@ MonoBehaviour:
   - {fileID: 928832529}
   - {fileID: 1093677690}
   - {fileID: 1979575775}
-  trashCount: 10
+  trashCount: 1
   spawnYOffset: 0.05
   minDistanceBetweenTrash: 5
   maxSpawnAttempts: 10
@@ -3521,6 +3521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e02b58f6272fec438b8a3414bcfacf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevel: 1
 --- !u!4 &622753555
 Transform:
   m_ObjectHideFlags: 0
