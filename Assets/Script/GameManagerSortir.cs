@@ -117,15 +117,23 @@ public class GameManagerSortir : MonoBehaviour
     {
         gameSelesai = true;
         waktuBermain = 0;
-        UpdateTeksWaktuLayar(); // Paksa teks jadi Waktu: 0s
+        UpdateTeksWaktuLayar(); 
 
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
 
-        Debug.Log("--- MINIGAME SELESAI ---");
-        Debug.Log("Total Skor Akhir: " + skorSaatIni);
-        Debug.Log("Koin yang Kamu Dapatkan: " + totalKoinDidapat);
-        
-        SelesaiDanKembaliKeGameUtama();
+        Debug.Log("--- MINIGAME SORTIR 1 SELESAI ---");
+
+        // 💥 HUBUNGKAN KE SYSTEM REWARD TOKO GLOBAL DI SINI:
+        if (GlobalRewardManager.Instance != null)
+        {
+            // Kirim skor akhir sortir 1 dan identitas nama scene sortirnya
+            GlobalRewardManager.Instance.MunculkanPopUpReward(skorSaatIni, "sortir1");
+        }
+        else
+        {
+            // Backup cadangan jika kamu lupa pasang prefab PanelReward di scene
+            SelesaiDanKembaliKeGameUtama(); 
+        }
     }
 
     void SelesaiDanKembaliKeGameUtama()
