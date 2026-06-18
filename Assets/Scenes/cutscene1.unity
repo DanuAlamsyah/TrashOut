@@ -1605,7 +1605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 120}
+  m_AnchoredPosition: {x: -200, y: 130}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &388747648
@@ -1661,7 +1661,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -5841,7 +5841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 120}
+  m_AnchoredPosition: {x: 200, y: 130}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1295019491
@@ -5897,8 +5897,8 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_fontStyle: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -7680,16 +7680,26 @@ MonoBehaviour:
   verel: {fileID: 10209112}
   dialogues:
   - speaker: VERREL
-    sentence: Eqo, apakah kau sudah sampai di Sektor Utara?
+    sentence: Jadi... inilah sektor utara!
   - speaker: EQO
-    sentence: Sudah, Komandan
+    sentence: Kerusakannya lebih buruk dari yang saya bayangkan
   - speaker: VERREL
-    sentence: Bagaimana kondisi di sana?
+    sentence: Longsoran Raya meninggalkan lebih dari sekadar tumpukan sampah.
+  - speaker: VERREL
+    sentence: Banyak area masih tercemar limbah beracun. Warga yang tersisa sudah
+      lama meninggalkan tempat ini.
   - speaker: EQO
-    sentence: Lebih buruk dari yang saya bayangkan
+    sentence: Apa tugas pertama saya?
   - speaker: VERREL
-    sentence: Bumi tidak butuh pahlawan, Eqo. Ia hanya butuh seseorang yang mau memungut
-      sisa kegagalan masa lalu.
+    sentence: Bersihkan arena ini, kumpulkan material yang dapat didaur ulang, dan
+      aktifkan kembali fasilitas pengolahan limbah.
+  - speaker: EQO
+    sentence: Baik, saya akan memulainya sekarang.
+  - speaker: VERREL
+    sentence: Hati-hati, Eqo. Sampah bukan satu-satunya ancaman yang tersisa di kota
+      ini.
+  - speaker: EQO
+    sentence: Baik, saya siap!
   typingSpeed: 0.03
 --- !u!4 &1755255832
 Transform:

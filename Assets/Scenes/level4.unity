@@ -11158,7 +11158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff96baf6cef15f944b993ececc4fe49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1995669206}
   distance: 6
   height: 2
   mouseSensitivity: 5
@@ -20261,6 +20261,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!4 &1995669206 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3706525504079240727, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1995669202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1998129016
 GameObject:
   m_ObjectHideFlags: 0
