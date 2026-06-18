@@ -13,9 +13,14 @@ public class MonsterHealth : MonoBehaviour
     [Header("Death")]
     public float destroyDelay = 1.5f;
 
-    // Naikkan sedikit posisi monster saat animasi mati jika terlihat tenggelam.
-    // Coba 0 dulu. Kalau masih tenggelam, coba 0.2, 0.3, 0.4.
-    public float deathYOffset = 0.3f;
+    // Untuk Slime sebelumnya bisa pakai 0.3.
+    // Untuk Imp/Boss biasanya mulai dari 0 dulu.
+    public float deathYOffset = 0f;
+
+    [Header("Animator Parameters")]
+    public string movingParameter = "isMoving";
+    public string takeDamageTrigger = "TakeDamage";
+    public string dieTrigger = "Die";
 
     private int currentHealth;
     private bool isDead = false;
@@ -47,9 +52,7 @@ public class MonsterHealth : MonoBehaviour
             animator.applyRootMotion = false;
         }
 
-        // Mengambil renderer dari object ini dan semua child-nya
         renderers = GetComponentsInChildren<Renderer>();
-
         originalColors = new Color[renderers.Length];
 
         for (int i = 0; i < renderers.Length; i++)
@@ -73,7 +76,6 @@ public class MonsterHealth : MonoBehaviour
 
     void LateUpdate()
     {
-        // Saat mati, kunci posisi root supaya monster tidak ikut turun/geser karena animasi/root motion.
         if (isDead)
         {
             transform.position = lockedDeathPosition;
@@ -92,6 +94,12 @@ public class MonsterHealth : MonoBehaviour
         {
             Die();
             return;
+        }
+
+        // Animasi kena damage untuk monster yang punya animasi Take Damage
+        if (animator != null && !string.IsNullOrEmpty(takeDamageTrigger))
+        {
+            animator.SetTrigger(takeDamageTrigger);
         }
 
         if (flashCoroutine != null)
@@ -164,15 +172,22 @@ public class MonsterHealth : MonoBehaviour
 
         RestoreOriginalColor();
 
-        // Kunci posisi mati. deathYOffset dipakai untuk mengatasi animasi mati yang terlihat masuk tanah.
         lockedDeathPosition = transform.position + new Vector3(0f, deathYOffset, 0f);
         transform.position = lockedDeathPosition;
 
         if (animator != null)
         {
             animator.applyRootMotion = false;
-            animator.SetBool("isMoving", false);
-            animator.SetTrigger("Die");
+
+            if (!string.IsNullOrEmpty(movingParameter))
+            {
+                animator.SetBool(movingParameter, false);
+            }
+
+            if (!string.IsNullOrEmpty(dieTrigger))
+            {
+                animator.SetTrigger(dieTrigger);
+            }
         }
 
         if (monsterAI != null)

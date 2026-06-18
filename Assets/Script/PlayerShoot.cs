@@ -14,6 +14,10 @@ public class PlayerShoot : MonoBehaviour
     public float aimFOV = 35f;
     public float aimSpeed = 10f;
 
+    [Header("Aim Shoot Direction")]
+    public float aimRayDistance = 100f;
+    public LayerMask aimLayerMask = ~0;
+
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip shotSound;
@@ -36,7 +40,7 @@ public class PlayerShoot : MonoBehaviour
         {
             audioSource.playOnAwake = false;
             audioSource.loop = false;
-            audioSource.spatialBlend = 0f; // 0 = suara 2D, tidak mengecil karena jarak
+            audioSource.spatialBlend = 0f; // 0 = suara 2D
             audioSource.volume = 1f;
         }
 
@@ -96,30 +100,70 @@ public class PlayerShoot : MonoBehaviour
         {
             isRunning = animator.GetBool("isRunning");
 
+            // Animasi shoot hanya diputar saat diam
             if (!isRunning)
             {
                 animator.SetTrigger("Shoot");
             }
         }
 
+        Vector3 shootDirection;
+
+        if (isAiming)
+        {
+            shootDirection = GetAimDirection();
+        }
+        else
+        {
+            shootDirection = firePoint.forward;
+        }
+
+        Quaternion bulletRotation = Quaternion.LookRotation(shootDirection);
+
         GameObject bullet = Instantiate(
             bulletPrefab,
             firePoint.position,
-            firePoint.rotation
+            bulletRotation
         );
 
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
-            rb.velocity = firePoint.forward * bulletSpeed;
+            rb.velocity = shootDirection * bulletSpeed;
         }
 
-        // Suara tembakan
         if (audioSource != null && shotSound != null)
         {
             audioSource.PlayOneShot(shotSound, shotVolume);
         }
+    }
+
+    Vector3 GetAimDirection()
+    {
+        if (playerCamera == null)
+        {
+            return firePoint.forward;
+        }
+
+        // Ray dari tengah layar/crosshair kamera
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        Vector3 targetPoint;
+
+        if (Physics.Raycast(ray, out RaycastHit hit, aimRayDistance, aimLayerMask, QueryTriggerInteraction.Ignore))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.origin + ray.direction * aimRayDistance;
+        }
+
+        Vector3 direction = targetPoint - firePoint.position;
+        direction.Normalize();
+
+        return direction;
     }
 
     public void ForceStopAim()
