@@ -30,16 +30,35 @@ public class LevelMenu : MonoBehaviour
 
     public void OpenLevel(int levelId)
     {
-        Debug.Log($"[LevelMenu] Tombol Level {levelId} KLIKS! Mencoba memuat scene...");
+        Debug.Log($"[LevelMenu] Tombol Level {levelId} KLIKS! Mencoba memproses rute scene...");
         
         // Simpan level yang sedang dimainkan
         PlayerPrefs.SetInt("CurrentLevel", levelId);
         PlayerPrefs.Save();
         Debug.Log($"[LevelMenu] PlayerPrefs 'CurrentLevel' disimpan dengan nilai: {levelId}");
 
-        // Menggunakan "level" (huruf kecil) sesuai nama asset scene kamu
+        // 🎬 LOGIKA KHUSUS UNTUK LEVEL 1 (DETEKSI CUTSCENE)
+        if (levelId == 1)
+        {
+            int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+
+            // Kondisi 1 & 3: Jika masih level 1 (baru main pertama kali ATAU habis di-reset)
+            if (unlockedLevel == 1)
+            {
+                Debug.Log("[LevelMenu] Player berada di Level 1 untuk pertama kali / pasca reset. Memuat Cutscene: cutscene1");
+                SceneManager.LoadScene("cutscene1");
+                return; // Berhenti di sini, jangan lanjut ke kode load level standar di bawah
+            }
+            // Kondisi 2: Jika progress sudah melebihi level 1 (misal sudah unlock level 2, 3, dst)
+            else
+            {
+                Debug.Log($"[LevelMenu] Player memilih ulang Level 1, tapi progress tertinggi sudah mencapai Level {unlockedLevel}. Melewati cutscene...");
+            }
+        }
+
+        // Jalur Standar / Alur Level Lainnya (Menggunakan huruf kecil sesuai nama asset)
         string sceneToLoad = "level" + levelId;
-        Debug.Log($"[LevelMenu] Memuat Scene: {sceneToLoad}");
+        Debug.Log($"[LevelMenu] Memuat Scene Standar: {sceneToLoad}");
         SceneManager.LoadScene(sceneToLoad);
     }
 
@@ -89,18 +108,16 @@ public class LevelMenu : MonoBehaviour
 
         // Paksa simpan semua penghapusan ke dalam brankas komputer
         PlayerPrefs.Save();
-        Debug.Log("[LevelMenu] Progress, Poin, Armor, dan Reward Toko Sortir berhasil DI-RESET TOTAL! Memuat ulang scene...");
+        Debug.Log("[LevelMenu] Progress, Poin, Armor, dan Reward Toko Sortir berhasil DI-RESET TOTAL!");
         
-        // Memuat ulang scene level select biar tombol-tombolnya langsung nge-lock lagi jadi Level 1
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // 🎬 LANGSUNG DIRECT KE SCENE CUTSCENE 1
+        Debug.Log("[LevelMenu] Mengarahkan langsung player ke: cutscene1");
+        SceneManager.LoadScene("cutscene1");
     }
-
-    // Tambahkan fungsi ini di dalam LevelMenu.cs
+    
     public void KembaliKeMainMenu()
     {
         Debug.Log("[LevelMenu] Tombol Back diklik! Langsung memuat scene: mainMenu");
-        
-        // Langsung tembak ke scene mainMenu tanpa lewat GameManager
         SceneManager.LoadScene("mainMenu"); 
     }
 }
