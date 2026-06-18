@@ -3181,8 +3181,8 @@ MonoBehaviour:
   - {fileID: 1361567489}
   - {fileID: 417231936}
   trashCount: 100
-  spawnYOffset: 0.2
-  minDistanceBetweenTrash: 1.5
+  spawnYOffset: 0.05
+  minDistanceBetweenTrash: 1
   maxSpawnAttempts: 100
   useRaycastToGround: 1
   groundLayer:
