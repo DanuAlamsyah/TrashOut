@@ -564,10 +564,19 @@ MonoBehaviour:
   target: {fileID: 1252993635}
   distance: 6
   height: 2
-  mouseSensitivity: 5
+  sideOffset: 0
+  aimDistance: 2.2
+  aimHeight: 1.7
+  aimSideOffset: 0.9
+  aimLookForward: 8
+  mouseSensitivity: 3
   minYAngle: -20
   maxYAngle: 60
-  smoothSpeed: 8
+  smoothSpeed: 20
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 265
+  collisionOffset: 0.35
 --- !u!1001 &438235400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -813,6 +822,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 0
+  currentArmor: 0
+  teksArmorLayar: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  namaSceneMenu: mainMenu
   isDead: 0
 --- !u!1001 &1384800795
 PrefabInstance:
