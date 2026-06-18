@@ -66,11 +66,32 @@ public class LevelMenu : MonoBehaviour
     public static void ResetProgress()
     {
         Debug.Log("[LevelMenu] Fungsi ResetProgress() dipanggil secara statik!");
+        
+        // 🧼 1. RESET PROGRESS UTAMA BAWAAN TIM
         PlayerPrefs.SetInt("UnlockedLevel", 1);
         PlayerPrefs.SetInt("CurrentLevel", 1);
-        PlayerPrefs.Save();
 
-        Debug.Log("[LevelMenu] Progress di PlayerPrefs berhasil di-reset ke Level 1. Memuat ulang scene aktif...");
+        // 🧼 2. RESET TOTAL POIN GLOBAL & REWARD TOKO RAHMA
+        PlayerPrefs.DeleteKey("TotalPoinGlobal");
+        PlayerPrefs.DeleteKey("NilaiArmorPemain");
+        PlayerPrefs.DeleteKey("PunyaPistolAngin");
+
+        // 🧼 3. RESET STATUS TOMBOL BIAR GAK AUTO-HANGUS (BISA DIBELI LAGI)
+        PlayerPrefs.DeleteKey("Hati1_Terbeli");
+        PlayerPrefs.DeleteKey("Senjata_Terbeli");
+        PlayerPrefs.DeleteKey("Hati2_Terbeli");
+
+        // 🧼 4. RESET REKOR SKOR MAKSIMAL TIAP SCENE SORTIR
+        PlayerPrefs.DeleteKey("Poin_sortir1");
+        PlayerPrefs.DeleteKey("Poin_sortir2");
+        PlayerPrefs.DeleteKey("Poin_sortir3");
+        PlayerPrefs.DeleteKey("Poin_sortir4");
+
+        // Paksa simpan semua penghapusan ke dalam brankas komputer
+        PlayerPrefs.Save();
+        Debug.Log("[LevelMenu] Progress, Poin, Armor, dan Reward Toko Sortir berhasil DI-RESET TOTAL! Memuat ulang scene...");
+        
+        // Memuat ulang scene level select biar tombol-tombolnya langsung nge-lock lagi jadi Level 1
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

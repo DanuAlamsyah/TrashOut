@@ -4,9 +4,16 @@ public class ThirdPersonCamera : MonoBehaviour
 {
     public Transform target;
 
-    [Header("Camera Distance")]
+    [Header("Normal Camera")]
     public float distance = 6f;
     public float height = 2f;
+    public float sideOffset = 0f;
+
+    [Header("Aim Camera")]
+    public float aimDistance = 2.2f;
+    public float aimHeight = 1.7f;
+    public float aimSideOffset = 0.9f;
+    public float aimLookForward = 8f;
 
     [Header("Mouse Sensitivity")]
     public float mouseSensitivity = 3f;
@@ -16,7 +23,11 @@ public class ThirdPersonCamera : MonoBehaviour
     public float maxYAngle = 60f;
 
     [Header("Smooth")]
-    public float smoothSpeed = 10f;
+    public float smoothSpeed = 12f;
+
+    [Header("Camera Collision")]
+    public LayerMask collisionLayerMask = ~0;
+    public float collisionOffset = 0.35f;
 
     private float rotationX = 0f;
     private float rotationY = 20f;
@@ -31,6 +42,8 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         if (target == null) return;
 
+        bool isAiming = Input.GetMouseButton(1);
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
@@ -40,18 +53,24 @@ public class ThirdPersonCamera : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(rotationY, rotationX, 0f);
 
-        Vector3 targetPosition = target.position + Vector3.up * height;
+        float currentDistance = isAiming ? aimDistance : distance;
+        float currentHeight = isAiming ? aimHeight : height;
+        float currentSideOffset = isAiming ? aimSideOffset : sideOffset;
 
-        // Posisi kamera yang diinginkan
-        Vector3 desiredPosition = targetPosition + rotation * new Vector3(0f, 0f, -distance);
+        Vector3 pivotPosition = target.position + Vector3.up * currentHeight;
 
-        RaycastHit hit;
+        Vector3 desiredPosition =
+            pivotPosition +
+            rotation * new Vector3(currentSideOffset, 0f, -currentDistance);
 
-        // Cek apakah ada objek di antara player dan kamera
-        if (Physics.Linecast(targetPosition, desiredPosition, out hit))
+        if (Physics.Linecast(
+            pivotPosition,
+            desiredPosition,
+            out RaycastHit hit,
+            collisionLayerMask,
+            QueryTriggerInteraction.Ignore))
         {
-            // Geser kamera ke depan sedikit dari dinding
-            desiredPosition = hit.point + hit.normal * 0.5f;
+            desiredPosition = hit.point + hit.normal * collisionOffset;
         }
 
         transform.position = Vector3.Lerp(
@@ -60,6 +79,31 @@ public class ThirdPersonCamera : MonoBehaviour
             smoothSpeed * Time.deltaTime
         );
 
-        transform.LookAt(targetPosition);
+        if (isAiming)
+        {
+            // Mode aim: kamera melihat ke depan, bukan ke badan player
+            Vector3 aimLookTarget = pivotPosition + rotation * Vector3.forward * aimLookForward;
+
+            Quaternion aimRotation = Quaternion.LookRotation(aimLookTarget - transform.position);
+
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,
+                aimRotation,
+                smoothSpeed * Time.deltaTime
+            );
+        }
+        else
+        {
+            // Mode normal: kamera selalu lock LookAt ke player
+            Vector3 normalLookTarget = target.position + Vector3.up * height;
+
+            Quaternion normalRotation = Quaternion.LookRotation(normalLookTarget - transform.position);
+
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,
+                normalRotation,
+                smoothSpeed * Time.deltaTime
+            );
+        }
     }
 }
