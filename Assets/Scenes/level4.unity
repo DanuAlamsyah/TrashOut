@@ -16615,7 +16615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8704bcb84c59e4232b9f4bca86e4e6bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 1995669207}
   heartFills:
   - {fileID: 717808934}
   - {fileID: 1859019710}
@@ -20561,6 +20561,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1995669202}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1995669207 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 27803396780379970, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1995669202}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995669203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc8e44bc5368e04ca13ee60e645576f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1998129016
 GameObject:
   m_ObjectHideFlags: 0
