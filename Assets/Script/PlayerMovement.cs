@@ -110,13 +110,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMoving)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            // Saat mundur, jangan putar badan
+            if (vertical >= 0)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
+            }
         }
 
         if (animator != null)
