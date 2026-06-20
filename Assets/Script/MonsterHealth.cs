@@ -1,14 +1,27 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonsterHealth : MonoBehaviour
 {
     [Header("Health")]
     public int maxHealth = 3;
 
+
+    [Header("Health Bar")]
+    public GameObject healthBar;
+    public Image healthFill;
+    public float hideHealthDelay = 3f;
+
+    private Coroutine hideHealthCoroutine;
+
+
+
     [Header("Damage Flash")]
     public Color hitColor = Color.red;
     public float flashDuration = 0.12f;
+
+
 
     [Header("Death")]
     public float destroyDelay = 1.5f;
@@ -17,17 +30,23 @@ public class MonsterHealth : MonoBehaviour
     // Untuk Imp/Boss biasanya mulai dari 0 dulu.
     public float deathYOffset = 0f;
 
+
+
     [Header("Animator Parameters")]
     public string movingParameter = "isMoving";
     public string takeDamageTrigger = "TakeDamage";
     public string dieTrigger = "Die";
 
+
+
     private int currentHealth;
     private bool isDead = false;
+
 
     private Renderer[] renderers;
     private Color[] originalColors;
     private Coroutine flashCoroutine;
+
 
     private Animator animator;
     private MonsterAI monsterAI;
@@ -35,11 +54,22 @@ public class MonsterHealth : MonoBehaviour
     private Collider monsterCollider;
     private Rigidbody rigidbodyComponent;
 
+
     private Vector3 lockedDeathPosition;
+
+
 
     void Start()
     {
         currentHealth = maxHealth;
+
+
+        // Sembunyikan health bar saat awal
+        if (healthBar != null)
+        {
+            healthBar.SetActive(false);
+        }
+
 
         animator = GetComponentInChildren<Animator>();
         monsterAI = GetComponent<MonsterAI>();
@@ -47,17 +77,21 @@ public class MonsterHealth : MonoBehaviour
         monsterCollider = GetComponent<Collider>();
         rigidbodyComponent = GetComponent<Rigidbody>();
 
+
         if (animator != null)
         {
             animator.applyRootMotion = false;
         }
 
+
         renderers = GetComponentsInChildren<Renderer>();
         originalColors = new Color[renderers.Length];
+
 
         for (int i = 0; i < renderers.Length; i++)
         {
             Material mat = renderers[i].material;
+
 
             if (mat.HasProperty("_BaseColor"))
             {
@@ -74,6 +108,9 @@ public class MonsterHealth : MonoBehaviour
         }
     }
 
+
+
+
     void LateUpdate()
     {
         if (isDead)
@@ -82,13 +119,37 @@ public class MonsterHealth : MonoBehaviour
         }
     }
 
+
+
+
+
     public void TakeDamage(int damage)
     {
         if (isDead) return;
 
+
+
         currentHealth -= damage;
 
-        Debug.Log(gameObject.name + " terkena damage. HP: " + currentHealth);
+
+        Debug.Log(
+            gameObject.name +
+            " terkena damage. HP: " +
+            currentHealth
+        );
+
+
+
+        // Munculkan health bar
+        ShowHealthBar();
+
+
+
+        // Update darah
+        UpdateHealthBar();
+
+
+
 
         if (currentHealth <= 0)
         {
@@ -96,25 +157,97 @@ public class MonsterHealth : MonoBehaviour
             return;
         }
 
-        // Animasi kena damage untuk monster yang punya animasi Take Damage
-        if (animator != null && !string.IsNullOrEmpty(takeDamageTrigger))
+
+
+        // Animasi kena damage
+        if (animator != null && 
+            !string.IsNullOrEmpty(takeDamageTrigger))
         {
             animator.SetTrigger(takeDamageTrigger);
         }
+
+
+
 
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
         }
 
-        flashCoroutine = StartCoroutine(FlashHitColor());
+
+        flashCoroutine =
+            StartCoroutine(FlashHitColor());
     }
+
+
+
+
+
+
+
+    void ShowHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.SetActive(true);
+        }
+
+
+        if (hideHealthCoroutine != null)
+        {
+            StopCoroutine(hideHealthCoroutine);
+        }
+
+
+        hideHealthCoroutine =
+            StartCoroutine(HideHealthBar());
+    }
+
+
+
+
+
+
+    IEnumerator HideHealthBar()
+    {
+        yield return new WaitForSeconds(hideHealthDelay);
+
+
+        if (healthBar != null)
+        {
+            healthBar.SetActive(false);
+        }
+    }
+
+
+
+
+
+
+
+    void UpdateHealthBar()
+    {
+        if (healthFill != null)
+        {
+            healthFill.fillAmount =
+                (float)currentHealth / maxHealth;
+        }
+    }
+
+
+
+
+
+
 
     IEnumerator FlashHitColor()
     {
         SetColor(hitColor);
 
+
         yield return new WaitForSeconds(flashDuration);
+
+
 
         if (!isDead)
         {
@@ -122,11 +255,17 @@ public class MonsterHealth : MonoBehaviour
         }
     }
 
+
+
+
+
+
     void SetColor(Color color)
     {
         for (int i = 0; i < renderers.Length; i++)
         {
             Material mat = renderers[i].material;
+
 
             if (mat.HasProperty("_BaseColor"))
             {
@@ -139,15 +278,24 @@ public class MonsterHealth : MonoBehaviour
         }
     }
 
+
+
+
+
+
     void RestoreOriginalColor()
     {
         for (int i = 0; i < renderers.Length; i++)
         {
             Material mat = renderers[i].material;
 
+
             if (mat.HasProperty("_BaseColor"))
             {
-                mat.SetColor("_BaseColor", originalColors[i]);
+                mat.SetColor(
+                    "_BaseColor",
+                    originalColors[i]
+                );
             }
             else if (mat.HasProperty("_Color"))
             {
@@ -156,54 +304,97 @@ public class MonsterHealth : MonoBehaviour
         }
     }
 
+
+
+
+
+
+
+
     void Die()
     {
         if (isDead) return;
 
+
         isDead = true;
         currentHealth = 0;
 
+
         Debug.Log(gameObject.name + " mati.");
+
+
 
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
         }
 
+
         RestoreOriginalColor();
 
-        lockedDeathPosition = transform.position + new Vector3(0f, deathYOffset, 0f);
+
+
+        lockedDeathPosition =
+            transform.position +
+            new Vector3(0f, deathYOffset, 0f);
+
+
+
         transform.position = lockedDeathPosition;
+
+
+
+
 
         if (animator != null)
         {
             animator.applyRootMotion = false;
 
+
+
             if (!string.IsNullOrEmpty(movingParameter))
             {
-                animator.SetBool(movingParameter, false);
+                animator.SetBool(
+                    movingParameter,
+                    false
+                );
             }
+
+
 
             if (!string.IsNullOrEmpty(dieTrigger))
             {
-                animator.SetTrigger(dieTrigger);
+                animator.SetTrigger(
+                    dieTrigger
+                );
             }
         }
+
+
+
+
+
 
         if (monsterAI != null)
         {
             monsterAI.enabled = false;
         }
 
+
+
         if (characterController != null)
         {
             characterController.enabled = false;
         }
 
+
+
         if (monsterCollider != null)
         {
             monsterCollider.enabled = false;
         }
+
+
 
         if (rigidbodyComponent != null)
         {
@@ -211,6 +402,18 @@ public class MonsterHealth : MonoBehaviour
             rigidbodyComponent.isKinematic = true;
         }
 
+
+
         Destroy(gameObject, destroyDelay);
+    }
+
+
+
+
+
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }
