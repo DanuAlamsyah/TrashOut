@@ -841,6 +841,16 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6270294373414895352, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+        type: 3}
+      propertyPath: weaponUpgrade
+      value: 
+      objectReference: {fileID: 1992050200}
+    - target: {fileID: 6270294373414895352, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+        type: 3}
+      propertyPath: aimLayerMask.m_Bits
+      value: 393
+      objectReference: {fileID: 0}
     - target: {fileID: 8844987640531588464, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
         type: 3}
       propertyPath: m_Name
@@ -858,6 +868,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1992050182}
+    - targetCorrespondingSourceObject: {fileID: 8844987640531588464, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1992050200}
   m_SourcePrefab: {fileID: 100100000, guid: 6bd38b438faa6ea4a9c9c49ad957dae2, type: 3}
 --- !u!1001 &117371774
 PrefabInstance:
@@ -4287,10 +4301,10 @@ MonoBehaviour:
   mouseSensitivity: 5
   minYAngle: -20
   maxYAngle: 60
-  smoothSpeed: 8
+  smoothSpeed: 20
   collisionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 265
   collisionOffset: 0.35
 --- !u!114 &690083248
 MonoBehaviour:
@@ -11802,6 +11816,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc8e44bc5368e04ca13ee60e645576f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1992050200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992050181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5806c5f961fcea49b10d9222d3c01ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRateUpgrade: 0
+  damageUpgrade: 0
+  fireRateMultiplier: 0.5
+  damageMultiplier: 2
 --- !u!1 &1997666585
 GameObject:
   m_ObjectHideFlags: 0

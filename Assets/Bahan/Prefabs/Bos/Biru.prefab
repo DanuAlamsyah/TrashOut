@@ -4941,6 +4941,7 @@ GameObject:
   - component: {fileID: 2349568340592597726}
   - component: {fileID: 5279884361945864431}
   - component: {fileID: 1311267640179336714}
+  - component: {fileID: 7731140483583320928}
   m_Layer: 0
   m_Name: Biru
   m_TagString: Untagged
@@ -5119,6 +5120,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7731140483583320928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107846521348145241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 885fb5e049eba64449e2eea9f8bc368e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trashPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  trashAmountPerVomit: 3
+  spawnRadius: 1.5
+  spawnYOffset: 0.1
+  minVomitTime: 5
+  maxVomitTime: 12
+  maxVomitCount: 999
+  spawnedTrashParent: {fileID: 0}
+  useRaycastToGround: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &5109881837786311867
 GameObject:
   m_ObjectHideFlags: 0

@@ -3756,10 +3756,19 @@ MonoBehaviour:
   target: {fileID: 1094146568}
   distance: 6
   height: 2
+  sideOffset: 0
+  aimDistance: 2.2
+  aimHeight: 1.7
+  aimSideOffset: 0.9
+  aimLookForward: 8
   mouseSensitivity: 5
   minYAngle: -20
   maxYAngle: 60
-  smoothSpeed: 8
+  smoothSpeed: 20
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 265
+  collisionOffset: 0.35
 --- !u!114 &690083248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6126,6 +6135,11 @@ PrefabInstance:
         type: 3}
       propertyPath: audioSource
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270294373414895352, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+        type: 3}
+      propertyPath: aimLayerMask.m_Bits
+      value: 393
       objectReference: {fileID: 0}
     - target: {fileID: 8844987640531588464, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
         type: 3}

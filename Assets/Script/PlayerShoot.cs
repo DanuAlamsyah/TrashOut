@@ -8,52 +8,80 @@ public class PlayerShoot : MonoBehaviour
     public float bulletSpeed = 12f;
     public float fireRate = 0.4f;
 
+
+    [Header("Damage")]
+    public int bulletDamage = 1;
+
+
+
+    [Header("Weapon Upgrade")]
+    public WeaponUpgrade weaponUpgrade;
+
+
+
     [Header("Aim")]
     public Camera playerCamera;
     public float normalFOV = 60f;
     public float aimFOV = 35f;
     public float aimSpeed = 10f;
 
+
+
     [Header("Aim Shoot Direction")]
     public float aimRayDistance = 100f;
     public LayerMask aimLayerMask = ~0;
 
+
+
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip shotSound;
-    [Range(0f, 3f)] public float shotVolume = 2f;
+    [Range(0f, 3f)]
+    public float shotVolume = 2f;
+
+
 
     private Animator animator;
     private float nextFireTime = 0f;
     private bool isAiming = false;
 
+
+
     void Start()
     {
         animator = GetComponent<Animator>();
 
-        if (audioSource == null)
+
+        if(audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
         }
 
-        if (audioSource != null)
+
+        if(audioSource != null)
         {
             audioSource.playOnAwake = false;
             audioSource.loop = false;
-            audioSource.spatialBlend = 0f; // 0 = suara 2D
+            audioSource.spatialBlend = 0f;
             audioSource.volume = 1f;
         }
 
-        if (playerCamera == null)
+
+        if(playerCamera == null)
         {
             playerCamera = Camera.main;
         }
 
-        if (playerCamera != null)
+
+        if(playerCamera != null)
         {
             normalFOV = playerCamera.fieldOfView;
         }
     }
+
+
+
+
 
     void Update()
     {
@@ -61,15 +89,24 @@ public class PlayerShoot : MonoBehaviour
         HandleShoot();
     }
 
+
+
+
+
+
     void HandleAim()
     {
         isAiming = Input.GetMouseButton(1);
 
-        if (playerCamera != null)
-        {
-            float targetFOV = isAiming ? aimFOV : normalFOV;
 
-            playerCamera.fieldOfView = Mathf.Lerp(
+        if(playerCamera != null)
+        {
+            float targetFOV =
+            isAiming ? aimFOV : normalFOV;
+
+
+            playerCamera.fieldOfView =
+            Mathf.Lerp(
                 playerCamera.fieldOfView,
                 targetFOV,
                 aimSpeed * Time.deltaTime
@@ -77,102 +114,274 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+
+
+
+
+
+
     void HandleShoot()
     {
-        if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
+        if(Input.GetMouseButtonDown(0)
+        && Time.time >= nextFireTime)
         {
+
             Shoot();
-            nextFireTime = Time.time + fireRate;
+
+
+
+            float currentFireRate = fireRate;
+
+
+
+            // Upgrade fire rate
+            if(weaponUpgrade != null &&
+               weaponUpgrade.fireRateUpgrade)
+            {
+                currentFireRate *=
+                weaponUpgrade.fireRateMultiplier;
+            }
+
+
+
+            nextFireTime =
+            Time.time + currentFireRate;
         }
     }
 
+
+
+
+
+
+
+
+
     void Shoot()
     {
-        if (bulletPrefab == null || firePoint == null)
+        if(bulletPrefab == null ||
+           firePoint == null)
         {
-            Debug.LogWarning("Bullet Prefab atau Fire Point belum diisi di PlayerShoot.");
+            Debug.LogWarning(
+            "Bullet Prefab atau Fire Point belum diisi."
+            );
+
             return;
         }
 
+
+
         bool isRunning = false;
 
-        if (animator != null)
-        {
-            isRunning = animator.GetBool("isRunning");
 
-            // Animasi shoot hanya diputar saat diam
-            if (!isRunning)
+
+        if(animator != null)
+        {
+            isRunning =
+            animator.GetBool("isRunning");
+
+
+            if(!isRunning)
             {
                 animator.SetTrigger("Shoot");
             }
         }
 
+
+
+
+
+
         Vector3 shootDirection;
 
-        if (isAiming)
+
+
+        if(isAiming)
         {
-            shootDirection = GetAimDirection();
+            shootDirection =
+            GetAimDirection();
         }
         else
         {
-            shootDirection = firePoint.forward;
+            shootDirection =
+            firePoint.forward;
         }
 
-        Quaternion bulletRotation = Quaternion.LookRotation(shootDirection);
 
-        GameObject bullet = Instantiate(
+
+
+
+        SpawnBullet(
+            shootDirection,
+            firePoint.position
+        );
+
+    }
+
+
+
+
+
+
+
+
+
+    void SpawnBullet(
+        Vector3 direction,
+        Vector3 position
+    )
+    {
+
+        Quaternion bulletRotation =
+        Quaternion.LookRotation(direction);
+
+
+
+        GameObject bullet =
+        Instantiate(
             bulletPrefab,
-            firePoint.position,
+            position,
             bulletRotation
         );
 
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
 
-        if (rb != null)
+
+
+        // Set damage peluru
+        BulletDamage damageScript =
+        bullet.GetComponent<BulletDamage>();
+
+
+        if(damageScript != null)
         {
-            rb.velocity = shootDirection * bulletSpeed;
+            int damage = bulletDamage;
+
+
+
+            if(weaponUpgrade != null &&
+               weaponUpgrade.damageUpgrade)
+            {
+                damage *=
+                weaponUpgrade.damageMultiplier;
+            }
+
+
+
+            damageScript.damage = damage;
         }
 
-        if (audioSource != null && shotSound != null)
+
+
+
+
+
+        Rigidbody rb =
+        bullet.GetComponent<Rigidbody>();
+
+
+        if(rb != null)
         {
-            audioSource.PlayOneShot(shotSound, shotVolume);
+            rb.velocity =
+            direction * bulletSpeed;
         }
+
+
+
+
+
+
+        if(audioSource != null &&
+           shotSound != null)
+        {
+            audioSource.PlayOneShot(
+                shotSound,
+                shotVolume
+            );
+        }
+
     }
+
+
+
+
+
+
+
+
 
     Vector3 GetAimDirection()
     {
-        if (playerCamera == null)
+
+        if(playerCamera == null)
         {
             return firePoint.forward;
         }
 
-        // Ray dari tengah layar/crosshair kamera
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+
+        Ray ray =
+        playerCamera.ViewportPointToRay(
+        new Vector3(0.5f,0.5f,0f)
+        );
+
+
 
         Vector3 targetPoint;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, aimRayDistance, aimLayerMask, QueryTriggerInteraction.Ignore))
+
+
+        if(Physics.Raycast(
+            ray,
+            out RaycastHit hit,
+            aimRayDistance,
+            aimLayerMask,
+            QueryTriggerInteraction.Ignore))
         {
-            targetPoint = hit.point;
+            targetPoint =
+            hit.point;
         }
         else
         {
-            targetPoint = ray.origin + ray.direction * aimRayDistance;
+            targetPoint =
+            ray.origin +
+            ray.direction *
+            aimRayDistance;
         }
 
-        Vector3 direction = targetPoint - firePoint.position;
+
+
+
+        Vector3 direction =
+        targetPoint -
+        firePoint.position;
+
+
+
         direction.Normalize();
 
+
+
         return direction;
+
     }
+
+
+
+
+
+
+
 
     public void ForceStopAim()
     {
         isAiming = false;
 
-        if (playerCamera != null)
+
+        if(playerCamera != null)
         {
-            playerCamera.fieldOfView = normalFOV;
+            playerCamera.fieldOfView =
+            normalFOV;
         }
     }
+
 }

@@ -26389,6 +26389,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1861510429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961574726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5806c5f961fcea49b10d9222d3c01ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRateUpgrade: 0
+  damageUpgrade: 0
+  fireRateMultiplier: 0.5
+  damageMultiplier: 2
 --- !u!1 &1863494668 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e06007c5aa3871a48b3424cf14ff24ab,
@@ -29769,10 +29785,10 @@ MonoBehaviour:
   mouseSensitivity: 5
   minYAngle: -20
   maxYAngle: 60
-  smoothSpeed: 8
+  smoothSpeed: 20
   collisionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 265
   collisionOffset: 0.35
 --- !u!114 &2050918617
 MonoBehaviour:
@@ -31186,6 +31202,16 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6270294373414895352, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+        type: 3}
+      propertyPath: weaponUpgrade
+      value: 
+      objectReference: {fileID: 1861510429}
+    - target: {fileID: 6270294373414895352, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+        type: 3}
+      propertyPath: aimLayerMask.m_Bits
+      value: 393
+      objectReference: {fileID: 0}
     - target: {fileID: 8844987640531588464, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
         type: 3}
       propertyPath: m_Name
@@ -31203,6 +31229,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1861510427}
+    - targetCorrespondingSourceObject: {fileID: 8844987640531588464, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1861510429}
   m_SourcePrefab: {fileID: 100100000, guid: 6bd38b438faa6ea4a9c9c49ad957dae2, type: 3}
 --- !u!1001 &2747682422932778574
 PrefabInstance:
