@@ -40,19 +40,23 @@ public class LevelMenu : MonoBehaviour
         // 🎬 LOGIKA KHUSUS UNTUK LEVEL 1 (DETEKSI CUTSCENE)
         if (levelId == 1)
         {
-            int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+            // Cek apakah player sudah pernah nonton cutscene ini (0 = belum, 1 = sudah)
+            int sudahNonton = PlayerPrefs.GetInt("SudahNontonCutscene1", 0);
 
-            // Kondisi 1 & 3: Jika masih level 1 (baru main pertama kali ATAU habis di-reset)
-            if (unlockedLevel == 1)
+            if (sudahNonton == 0)
             {
-                Debug.Log("[LevelMenu] Player berada di Level 1 untuk pertama kali / pasca reset. Memuat Cutscene: cutscene1");
+                Debug.Log("[LevelMenu] Player belum nonton cutscene / pasca reset. Memuat Cutscene: cutscene1");
+                
+                // Tandai bahwa player sudah nonton, jadi kalau dia ngulang Level 1 nggak perlu nonton lagi
+                PlayerPrefs.SetInt("SudahNontonCutscene1", 1);
+                PlayerPrefs.Save();
+                
                 SceneManager.LoadScene("cutscene1");
-                return; // Berhenti di sini, jangan lanjut ke kode load level standar di bawah
+                return; // Berhenti di sini, jangan lanjut load level 1 langsung
             }
-            // Kondisi 2: Jika progress sudah melebihi level 1 (misal sudah unlock level 2, 3, dst)
             else
             {
-                Debug.Log($"[LevelMenu] Player memilih ulang Level 1, tapi progress tertinggi sudah mencapai Level {unlockedLevel}. Melewati cutscene...");
+                Debug.Log("[LevelMenu] Player sudah pernah nonton cutscene. Langsung masuk ke Level 1...");
             }
         }
 
@@ -90,17 +94,20 @@ public class LevelMenu : MonoBehaviour
         PlayerPrefs.SetInt("UnlockedLevel", 1);
         PlayerPrefs.SetInt("CurrentLevel", 1);
 
-        // 🧼 2. RESET TOTAL POIN GLOBAL & REWARD TOKO RAHMA
+        // 🧼 2. RESET PENANDA CUTSCENE AGAR MUNCUL LAGI SAAT MENCET LEVEL 1
+        PlayerPrefs.SetInt("SudahNontonCutscene1", 0);
+
+        // 🧼 3. RESET TOTAL POIN GLOBAL & REWARD TOKO RAHMA
         PlayerPrefs.DeleteKey("TotalPoinGlobal");
         PlayerPrefs.DeleteKey("NilaiArmorPemain");
         PlayerPrefs.DeleteKey("PunyaPistolAngin");
 
-        // 🧼 3. RESET STATUS TOMBOL BIAR GAK AUTO-HANGUS (BISA DIBELI LAGI)
+        // 🧼 4. RESET STATUS TOMBOL BIAR GAK AUTO-HANGUS (BISA DIBELI LAGI)
         PlayerPrefs.DeleteKey("Hati1_Terbeli");
         PlayerPrefs.DeleteKey("Senjata_Terbeli");
         PlayerPrefs.DeleteKey("Hati2_Terbeli");
 
-        // 🧼 4. RESET REKOR SKOR MAKSIMAL TIAP SCENE SORTIR
+        // 🧼 5. RESET REKOR SKOR MAKSIMAL TIAP SCENE SORTIR
         PlayerPrefs.DeleteKey("Poin_sortir1");
         PlayerPrefs.DeleteKey("Poin_sortir2");
         PlayerPrefs.DeleteKey("Poin_sortir3");
@@ -108,11 +115,11 @@ public class LevelMenu : MonoBehaviour
 
         // Paksa simpan semua penghapusan ke dalam brankas komputer
         PlayerPrefs.Save();
-        Debug.Log("[LevelMenu] Progress, Poin, Armor, dan Reward Toko Sortir berhasil DI-RESET TOTAL!");
+        Debug.Log("[LevelMenu] Progress, Poin, Armor, Reward, dan Cutscene berhasil DI-RESET TOTAL!");
         
-        // 🎬 LANGSUNG DIRECT KE SCENE CUTSCENE 1
-        Debug.Log("[LevelMenu] Mengarahkan langsung player ke: cutscene1");
-        SceneManager.LoadScene("cutscene1");
+        // Reload UI Menu agar player bisa memencet Level 1 manual
+        Debug.Log("[LevelMenu] Reloading UI Menu...");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
     }
     
     public void KembaliKeMainMenu()
