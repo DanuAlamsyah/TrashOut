@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/sortir4.unity
     guid: aa40dc7b59dd9f34286357c7a85f1695
+  - enabled: 1
+    path: Assets/Scenes/WinCondition.unity
+    guid: 8a26aef3fe0d24df6839abf27fcf9447
   m_configObjects: {}

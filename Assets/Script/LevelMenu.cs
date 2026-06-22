@@ -31,7 +31,7 @@ public class LevelMenu : MonoBehaviour
     public void OpenLevel(int levelId)
     {
         Debug.Log($"[LevelMenu] Tombol Level {levelId} KLIKS! Mencoba memproses rute scene...");
-        
+
         // Simpan level yang sedang dimainkan
         PlayerPrefs.SetInt("CurrentLevel", levelId);
         PlayerPrefs.Save();
@@ -46,11 +46,11 @@ public class LevelMenu : MonoBehaviour
             if (sudahNonton == 0)
             {
                 Debug.Log("[LevelMenu] Player belum nonton cutscene / pasca reset. Memuat Cutscene: cutscene1");
-                
+
                 // Tandai bahwa player sudah nonton, jadi kalau dia ngulang Level 1 nggak perlu nonton lagi
                 PlayerPrefs.SetInt("SudahNontonCutscene1", 1);
                 PlayerPrefs.Save();
-                
+
                 SceneManager.LoadScene("cutscene1");
                 return; // Berhenti di sini, jangan lanjut load level 1 langsung
             }
@@ -89,7 +89,7 @@ public class LevelMenu : MonoBehaviour
     public static void ResetProgress()
     {
         Debug.Log("[LevelMenu] Fungsi ResetProgress() dipanggil secara statik!");
-        
+
         // 🧼 1. RESET PROGRESS UTAMA BAWAAN TIM
         PlayerPrefs.SetInt("UnlockedLevel", 1);
         PlayerPrefs.SetInt("CurrentLevel", 1);
@@ -116,15 +116,32 @@ public class LevelMenu : MonoBehaviour
         // Paksa simpan semua penghapusan ke dalam brankas komputer
         PlayerPrefs.Save();
         Debug.Log("[LevelMenu] Progress, Poin, Armor, Reward, dan Cutscene berhasil DI-RESET TOTAL!");
-        
+
         // Reload UI Menu agar player bisa memencet Level 1 manual
         Debug.Log("[LevelMenu] Reloading UI Menu...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
+
+    // Memuat scene WinCondition (dipanggil mis. saat menyelesaikan Level 5)
+    public static void LoadWinCondition()
+    {
+        Debug.Log("[LevelMenu] Memuat scene WinCondition dan memproses unlock level berikutnya...");
+
+        // Pastikan level saat ini di-unlock sebelum berpindah ke WinCondition
+        UnlockCurrentLevelNext();
+
+        SceneManager.LoadScene("WinCondition");
+    }
+
+    // Instance wrapper bila dipanggil dari komponen non-statik
+    public void LoadWinConditionInstance()
+    {
+        LoadWinCondition();
+    }
+
     public void KembaliKeMainMenu()
     {
         Debug.Log("[LevelMenu] Tombol Back diklik! Langsung memuat scene: mainMenu");
-        SceneManager.LoadScene("mainMenu"); 
+        SceneManager.LoadScene("mainMenu");
     }
 }
