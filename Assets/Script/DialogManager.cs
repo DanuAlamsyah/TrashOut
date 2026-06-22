@@ -29,7 +29,13 @@ public class DialogManager : MonoBehaviour
     private int currentIndex = 0;
     private bool isTyping = false;
 
-    void Start()
+   void Start()
+    {
+        eqoPanel.SetActive(false);
+        verelPanel.SetActive(false);
+    }
+
+    public void StartDialogue()
     {
         ShowDialogue();
     }
