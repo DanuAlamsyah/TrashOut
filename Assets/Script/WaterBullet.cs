@@ -2,58 +2,98 @@ using UnityEngine;
 
 public class WaterBullet : MonoBehaviour
 {
-    public float lifeTime = 2f;
+    public float lifeTime = 1.5f;
+
     public int damage = 1;
+
 
     [Header("Hit Effects")]
     public GameObject splashParticlePrefab;
     public GameObject hitRingPrefab;
+
 
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
 
+
+
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
+
+
+
     void OnCollisionEnter(Collision collision)
     {
-        MonsterHealth monster = collision.gameObject.GetComponent<MonsterHealth>();
 
-        if (monster != null)
+        MonsterHealth monster =
+        collision.gameObject.GetComponent<MonsterHealth>();
+
+
+        if(monster != null)
         {
             monster.TakeDamage(damage);
         }
 
+
         SpawnHitEffects(collision);
+
 
         Destroy(gameObject);
     }
 
+
+
+
     void SpawnHitEffects(Collision collision)
     {
-        if (collision.contacts.Length == 0) return;
 
-        ContactPoint contact = collision.contacts[0];
+        if(collision.contacts.Length == 0)
+            return;
 
-        if (splashParticlePrefab != null)
+
+        ContactPoint contact =
+        collision.contacts[0];
+
+
+
+        if(splashParticlePrefab != null)
         {
-            GameObject splash = Instantiate(
+
+            GameObject splash =
+            Instantiate(
                 splashParticlePrefab,
                 contact.point,
                 Quaternion.LookRotation(contact.normal)
             );
 
-            Destroy(splash, 1f);
+
+            Destroy(splash,1f);
+
         }
 
-        if (hitRingPrefab != null)
+
+
+        if(hitRingPrefab != null)
         {
-            GameObject ring = Instantiate(
+
+            GameObject ring =
+            Instantiate(
                 hitRingPrefab,
                 contact.point + contact.normal * 0.01f,
-                Quaternion.FromToRotation(Vector3.up, contact.normal)
+                Quaternion.FromToRotation(
+                    Vector3.up,
+                    contact.normal
+                )
             );
 
-            Destroy(ring, 1f);
+
+            Destroy(ring,1f);
+
         }
+
     }
 }

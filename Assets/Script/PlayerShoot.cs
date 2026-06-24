@@ -6,12 +6,11 @@ public class PlayerShoot : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletSpeed = 12f;
-    public float fireRate = 0.4f;
+    public float fireRate = 2f;
 
 
     [Header("Damage")]
     public int bulletDamage = 1;
-
 
 
     [Header("Weapon Upgrade")]
@@ -36,7 +35,7 @@ public class PlayerShoot : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip shotSound;
-    [Range(0f, 3f)]
+    [Range(0f,3f)]
     public float shotVolume = 2f;
 
 
@@ -93,7 +92,6 @@ public class PlayerShoot : MonoBehaviour
 
 
 
-
     void HandleAim()
     {
         isAiming = Input.GetMouseButton(1);
@@ -118,8 +116,6 @@ public class PlayerShoot : MonoBehaviour
 
 
 
-
-
     void HandleShoot()
     {
         if(Input.GetMouseButtonDown(0)
@@ -127,7 +123,6 @@ public class PlayerShoot : MonoBehaviour
         {
 
             Shoot();
-
 
 
             float currentFireRate = fireRate;
@@ -138,8 +133,10 @@ public class PlayerShoot : MonoBehaviour
             if(weaponUpgrade != null &&
                weaponUpgrade.fireRateUpgrade)
             {
+
                 currentFireRate *=
                 weaponUpgrade.fireRateMultiplier;
+
             }
 
 
@@ -154,11 +151,9 @@ public class PlayerShoot : MonoBehaviour
 
 
 
-
-
-
     void Shoot()
     {
+
         if(bulletPrefab == null ||
            firePoint == null)
         {
@@ -171,13 +166,11 @@ public class PlayerShoot : MonoBehaviour
 
 
 
-        bool isRunning = false;
-
-
 
         if(animator != null)
         {
-            isRunning =
+
+            bool isRunning =
             animator.GetBool("isRunning");
 
 
@@ -185,9 +178,8 @@ public class PlayerShoot : MonoBehaviour
             {
                 animator.SetTrigger("Shoot");
             }
+
         }
-
-
 
 
 
@@ -210,7 +202,6 @@ public class PlayerShoot : MonoBehaviour
 
 
 
-
         SpawnBullet(
             shootDirection,
             firePoint.position
@@ -224,15 +215,14 @@ public class PlayerShoot : MonoBehaviour
 
 
 
-
-
     void SpawnBullet(
         Vector3 direction,
         Vector3 position
     )
     {
 
-        Quaternion bulletRotation =
+
+        Quaternion rotation =
         Quaternion.LookRotation(direction);
 
 
@@ -241,35 +231,52 @@ public class PlayerShoot : MonoBehaviour
         Instantiate(
             bulletPrefab,
             position,
-            bulletRotation
+            rotation
         );
 
 
 
 
-        // Set damage peluru
-        BulletDamage damageScript =
-        bullet.GetComponent<BulletDamage>();
+
+        // =========================
+        // SET DAMAGE WATER BULLET
+        // =========================
 
 
-        if(damageScript != null)
+        WaterBullet waterBullet =
+        bullet.GetComponent<WaterBullet>();
+
+
+
+        if(waterBullet != null)
         {
-            int damage = bulletDamage;
+
+            int finalDamage =
+            bulletDamage;
 
 
 
             if(weaponUpgrade != null &&
                weaponUpgrade.damageUpgrade)
             {
-                damage *=
+
+                finalDamage *=
                 weaponUpgrade.damageMultiplier;
+
             }
 
 
 
-            damageScript.damage = damage;
-        }
+            waterBullet.damage =
+            finalDamage;
 
+
+            Debug.Log(
+            "Bullet Damage : "
+            + finalDamage
+            );
+
+        }
 
 
 
@@ -281,10 +288,11 @@ public class PlayerShoot : MonoBehaviour
 
         if(rb != null)
         {
+
             rb.velocity =
             direction * bulletSpeed;
-        }
 
+        }
 
 
 
@@ -293,10 +301,12 @@ public class PlayerShoot : MonoBehaviour
         if(audioSource != null &&
            shotSound != null)
         {
+
             audioSource.PlayOneShot(
                 shotSound,
                 shotVolume
             );
+
         }
 
     }
@@ -308,9 +318,9 @@ public class PlayerShoot : MonoBehaviour
 
 
 
-
     Vector3 GetAimDirection()
     {
+
 
         if(playerCamera == null)
         {
@@ -319,10 +329,12 @@ public class PlayerShoot : MonoBehaviour
 
 
 
+
         Ray ray =
         playerCamera.ViewportPointToRay(
-        new Vector3(0.5f,0.5f,0f)
+        new Vector3(0.5f,0.5f,0)
         );
+
 
 
 
@@ -337,16 +349,21 @@ public class PlayerShoot : MonoBehaviour
             aimLayerMask,
             QueryTriggerInteraction.Ignore))
         {
+
             targetPoint =
             hit.point;
+
         }
         else
         {
+
             targetPoint =
             ray.origin +
             ray.direction *
             aimRayDistance;
+
         }
+
 
 
 
@@ -370,10 +387,9 @@ public class PlayerShoot : MonoBehaviour
 
 
 
-
-
     public void ForceStopAim()
     {
+
         isAiming = false;
 
 
@@ -382,6 +398,7 @@ public class PlayerShoot : MonoBehaviour
             playerCamera.fieldOfView =
             normalFOV;
         }
+
     }
 
 }

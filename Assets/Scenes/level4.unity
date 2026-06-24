@@ -21070,6 +21070,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6270294373414895352, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
         type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270294373414895352, guid: 6bd38b438faa6ea4a9c9c49ad957dae2,
+        type: 3}
       propertyPath: shotSound
       value: 
       objectReference: {fileID: 8300000, guid: 033136c6853b5440e9b58e1c212714ea, type: 3}
