@@ -13,12 +13,12 @@ public class GlobalRewardManager : MonoBehaviour
 
     [Header("Komponen Tombol Toko UI")]
     public Button tombolHati1;
-    public Button tombolSenjata;
+    public Button tombolUpgradeSenjata; // Diubah nama variabel agar lebih jelas
     public Button tombolHati2;
 
     [Header("Visual Gembok Objek")]
     public GameObject gembokHati1;
-    public GameObject gembokSenjata;
+    public GameObject gembokUpgradeSenjata; // Diubah nama variabel agar lebih jelas
     public GameObject gembokHati2;
 
     [Header("Nama Scene Tujuan Berikutnya")]
@@ -29,14 +29,11 @@ public class GlobalRewardManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        // Otomatis menyembunyikan panel reward saat game baru mulai berjalan
         if (panelReward != null) panelReward.SetActive(false); 
     }
 
-    // Fungsi dipanggil oleh GameManagerSortir saat waktu bermain habis
     public void MunculkanPopUpReward(int poinBaruDariLevelIni, string namaLevelSortirIni)
     {
-        // 1. Logika Akumulasi Skor & Proteksi Replay Level
         int poinLamaLevelIni = PlayerPrefs.GetInt("Poin_" + namaLevelSortirIni, 0);
         totalPoinTabungan = PlayerPrefs.GetInt("TotalPoinGlobal", 0);
 
@@ -50,7 +47,6 @@ public class GlobalRewardManager : MonoBehaviour
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
         PlayerPrefs.Save();
 
-        // 2. Aktifkan visual panel toko
         if (panelReward != null) panelReward.SetActive(true);
         
         UpdateVisualToko();
@@ -58,20 +54,18 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void UpdateVisualToko()
     {
-        // Update teks sisa tabungan koin/poin pemain di layar
         if (teksTotalPoin != null) teksTotalPoin.text = "Poin Kamu: " + totalPoinTabungan;
 
         // ==========================================
-        // 🔒 LOGIKA UNTUK ITEM 1: 1 HATI (70 POIN)
+        // 🔒 LOGIKA UNTUK ITEM 1: ARMOR LV 1 (70 POIN)
         // ==========================================
         if (PlayerPrefs.GetInt("Hati1_Terbeli", 0) == 1)
         {
-            tombolHati1.interactable = false; // Tombol mati/hangus
-            if (gembokHati1 != null) gembokHati1.SetActive(false); // Gembok hilang karena sudah dibeli
+            tombolHati1.interactable = false;
+            if (gembokHati1 != null) gembokHati1.SetActive(false);
         }
         else
         {
-            // Jika belum dibeli, tombol menyala jika poin cukup, gembok aktif jika poin kurang
             if (totalPoinTabungan >= 70)
             {
                 tombolHati1.interactable = true;
@@ -85,33 +79,33 @@ public class GlobalRewardManager : MonoBehaviour
         }
 
         // ==========================================
-        // 🔒 LOGIKA UNTUK ITEM 2: SENJATA (130 POIN)
+        // 🔒 LOGIKA UNTUK ITEM 2: UPGRADE SENJATA (130 POIN)
         // ==========================================
-        if (PlayerPrefs.GetInt("Senjata_Terbeli", 0) == 1)
+        if (PlayerPrefs.GetInt("Weapon_Upgraded", 0) == 1) // Menggunakan key baru
         {
-            tombolSenjata.interactable = false; // Tombol mati/hangus
-            if (gembokSenjata != null) gembokSenjata.SetActive(false);
+            tombolUpgradeSenjata.interactable = false; 
+            if (gembokUpgradeSenjata != null) gembokUpgradeSenjata.SetActive(false);
         }
         else
         {
             if (totalPoinTabungan >= 130)
             {
-                tombolSenjata.interactable = true;
-                if (gembokSenjata != null) gembokSenjata.SetActive(false);
+                tombolUpgradeSenjata.interactable = true;
+                if (gembokUpgradeSenjata != null) gembokUpgradeSenjata.SetActive(false);
             }
             else
             {
-                tombolSenjata.interactable = false;
-                if (gembokSenjata != null) gembokSenjata.SetActive(true);
+                tombolUpgradeSenjata.interactable = false;
+                if (gembokUpgradeSenjata != null) gembokUpgradeSenjata.SetActive(true);
             }
         }
 
         // ==========================================
-        // 🔒 LOGIKA UNTUK ITEM 3: 2 HATI (200 POIN)
+        // 🔒 LOGIKA UNTUK ITEM 3: ARMOR LV 2 (200 POIN)
         // ==========================================
         if (PlayerPrefs.GetInt("Hati2_Terbeli", 0) == 1)
         {
-            tombolHati2.interactable = false; // Tombol mati/hangus
+            tombolHati2.interactable = false;
             if (gembokHati2 != null) gembokHati2.SetActive(false);
         }
         else
@@ -129,21 +123,13 @@ public class GlobalRewardManager : MonoBehaviour
         }
     }
 
-    // ========================================================
-    // 🕹️ FUNGSI EKSEKUSI TRIGER ON-CLICK TOMBOL ITEM TOKO
-    // ========================================================
-
     public void TukarHati1()
     {
         if (totalPoinTabungan < 70) return;
-
         totalPoinTabungan -= 70;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
-
-        // 🛡️ SEKARANG JADI: BELI ARMOR LV 1 (Menambah 5 Perlindungan)
         PlayerPrefs.SetInt("NilaiArmorPemain", 5);
-
-        PlayerPrefs.SetInt("Hati1_Terbeli", 1); // Status tombol hangus tetap sama
+        PlayerPrefs.SetInt("Hati1_Terbeli", 1);
         PlayerPrefs.Save();
 
         UpdateVisualToko();
@@ -153,13 +139,9 @@ public class GlobalRewardManager : MonoBehaviour
     public void TukarHati2()
     {
         if (totalPoinTabungan < 200) return;
-
         totalPoinTabungan -= 200;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
-
-        // 🛡️ SEKARANG JADI: BELI ARMOR LV 2 (Menambah 15 Perlindungan)
         PlayerPrefs.SetInt("NilaiArmorPemain", 15);
-
         PlayerPrefs.SetInt("Hati2_Terbeli", 1);
         PlayerPrefs.Save();
 
@@ -167,29 +149,22 @@ public class GlobalRewardManager : MonoBehaviour
         TombolSkipAtauLanjut();
     }
 
-    public void TukarSenjata()
+    // FUNGSI BARU UNTUK UPGRADE SENJATA
+    public void TukarUpgradeSenjata()
     {
         if (totalPoinTabungan < 130) return;
 
         totalPoinTabungan -= 130;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
 
-        // Buka izin kepemilikan senjata di game utama
-        PlayerPrefs.SetInt("PunyaPistolAngin", 1);
-
-        // Kunci jatah item ini biar hangus
-        PlayerPrefs.SetInt("Senjata_Terbeli", 1);
+        // Menyimpan status bahwa senjata sudah di-upgrade ke memori perangkat
+        PlayerPrefs.SetInt("Weapon_Upgraded", 1);
         PlayerPrefs.Save();
 
         UpdateVisualToko();
         TombolSkipAtauLanjut();
     }
 
-    // ========================================================
-    // 🚀 FUNGSI TRIGER NAVIGASI / PINDAH SCENE LEVEL
-    // ========================================================
-
-    // Dipakai untuk Tombol "Lanjut / Skip"
     public void TombolSkipAtauLanjut()
     {
         if (!string.IsNullOrEmpty(namaSceneBerikutnya))
@@ -202,7 +177,6 @@ public class GlobalRewardManager : MonoBehaviour
         }
     }
 
-    // Dipakai untuk Tombol Baru buatanmu "Pilih Level" agar sinkron dengan menu tim
     public void TombolKembaliKeLevelSelect()
     {
         if (GameManager.Instance != null)
