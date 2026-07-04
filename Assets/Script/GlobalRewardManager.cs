@@ -125,6 +125,7 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void TukarHati1()
     {
+        ButtonSound.Instance.PlayClick();
         if (totalPoinTabungan < 70) return;
         totalPoinTabungan -= 70;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
@@ -138,6 +139,7 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void TukarHati2()
     {
+        ButtonSound.Instance.PlayClick();
         if (totalPoinTabungan < 200) return;
         totalPoinTabungan -= 200;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
@@ -152,6 +154,7 @@ public class GlobalRewardManager : MonoBehaviour
     // FUNGSI BARU UNTUK UPGRADE SENJATA
     public void TukarUpgradeSenjata()
     {
+        ButtonSound.Instance.PlayClick();
         if (totalPoinTabungan < 130) return;
 
         totalPoinTabungan -= 130;
@@ -167,6 +170,7 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void TombolSkipAtauLanjut()
     {
+        ButtonSound.Instance.PlayClick();
         if (!string.IsNullOrEmpty(namaSceneBerikutnya))
         {
             SceneManager.LoadScene(namaSceneBerikutnya);
@@ -179,6 +183,7 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void TombolKembaliKeLevelSelect()
     {
+        ButtonSound.Instance.PlayClick();
         if (GameManager.Instance != null)
         {
             GameManager.Instance.BackToLevelSelect();
