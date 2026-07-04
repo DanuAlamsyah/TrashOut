@@ -30,6 +30,7 @@ public class LevelMenu : MonoBehaviour
 
     public void OpenLevel(int levelId)
     {
+        ButtonSound.Instance.PlayClick();
         Debug.Log($"[LevelMenu] Tombol Level {levelId} KLIKS! Mencoba memproses rute scene...");
 
         // Simpan level yang sedang dimainkan
@@ -88,6 +89,7 @@ public class LevelMenu : MonoBehaviour
 
     public static void ResetProgress()
     {
+        ButtonSound.Instance.PlayClick();
         Debug.Log("[LevelMenu] Fungsi ResetProgress() dipanggil secara statik!");
 
         // 🧼 1. RESET PROGRESS UTAMA BAWAAN TIM
@@ -141,6 +143,7 @@ public class LevelMenu : MonoBehaviour
 
     public void KembaliKeMainMenu()
     {
+        ButtonSound.Instance.PlayClick();
         Debug.Log("[LevelMenu] Tombol Back diklik! Langsung memuat scene: mainMenu");
         SceneManager.LoadScene("mainMenu");
     }
