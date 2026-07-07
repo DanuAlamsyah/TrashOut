@@ -13,6 +13,6 @@ public class VideoSceneController : MonoBehaviour
 
     void OnVideoFinished(VideoPlayer vp)
     {
-        SceneManager.LoadScene("mainMenu");
+        SceneManager.LoadScene("credit");
     }
 }

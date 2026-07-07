@@ -48,7 +48,7 @@ public class BackgroundMusic : MonoBehaviour
     {
         if (scene.name == "mainMenu" ||
             scene.name == "LevelSelect" ||
-            scene.name == "Credits")
+            scene.name == "credit")
         {
             Destroy(gameObject);
         }

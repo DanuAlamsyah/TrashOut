@@ -39,7 +39,7 @@ public class MusicManager : MonoBehaviour
     // Kalau bukan scene menu, matikan musik menu
     if (scene.name != "mainMenu" &&
         scene.name != "LevelSelect" &&
-        scene.name != "Credits")
+        scene.name != "credit")
     {
       audioSource.Stop();
     }
