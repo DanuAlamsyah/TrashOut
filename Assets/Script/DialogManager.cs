@@ -29,6 +29,9 @@ public class DialogManager : MonoBehaviour
     private int currentIndex = 0;
     private bool isTyping = false;
 
+    [Header("Next Scene")]
+    public string nextScene;
+
    void Start()
     {
         eqoPanel.SetActive(false);
@@ -127,6 +130,6 @@ public class DialogManager : MonoBehaviour
 
     void EndCutscene()
     {
-        SceneManager.LoadScene("level1");
+        SceneManager.LoadScene(nextScene);
     }
 }
