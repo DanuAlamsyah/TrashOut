@@ -1158,7 +1158,7 @@ MonoBehaviour:
   gembokHati1: {fileID: 757388467}
   gembokUpgradeSenjata: {fileID: 1063816984}
   gembokHati2: {fileID: 920346697}
-  namaSceneBerikutnya: level2
+  namaSceneBerikutnya: cutscene2
 --- !u!1 &610099758
 GameObject:
   m_ObjectHideFlags: 0

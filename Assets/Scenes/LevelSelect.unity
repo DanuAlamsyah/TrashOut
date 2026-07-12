@@ -769,6 +769,17 @@ MonoBehaviour:
   - {fileID: 1076688841}
   - {fileID: 1773832849}
   - {fileID: 591875091}
+  sceneMappings:
+  - levelScene: level1
+    cutsceneScene: cutscene1
+  - levelScene: level2
+    cutsceneScene: cutscene2
+  - levelScene: level3
+    cutsceneScene: cutscene4
+  - levelScene: level4
+    cutsceneScene: cutscene5
+  - levelScene: level5
+    cutsceneScene: cutscene7
 --- !u!1 &960690804
 GameObject:
   m_ObjectHideFlags: 0

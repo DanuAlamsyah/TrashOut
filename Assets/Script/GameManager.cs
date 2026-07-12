@@ -64,24 +64,7 @@ public class GameManager : MonoBehaviour
 
     public void UnlockNextLevel()
     {
-        int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
-        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
-
-        Debug.Log($"[GameManager] UnlockNextLevel() | Current = {currentLevel}, Unlocked = {unlockedLevel}");
-
-        if (currentLevel >= unlockedLevel)
-        {
-            int nextLevel = currentLevel + 1;
-
-            PlayerPrefs.SetInt("UnlockedLevel", nextLevel);
-            PlayerPrefs.Save();
-
-            Debug.Log($"[GameManager] Level {nextLevel} berhasil dibuka.");
-        }
-        else
-        {
-            Debug.Log("[GameManager] Level berikutnya sudah pernah terbuka.");
-        }
+        LevelMenu.UnlockCurrentLevelNext();
     }
 
     // =========================
@@ -90,20 +73,8 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        Debug.Log("[GameManager] New Game dipilih.");
-
-        // Reset progress utama
-        PlayerPrefs.SetInt("UnlockedLevel", 1);
-        PlayerPrefs.SetInt("CurrentLevel", 1);
-
-        // Reset cutscene
-        PlayerPrefs.SetInt("SudahNontonCutscene1", 0);
-
-        PlayerPrefs.Save();
-
-        SceneManager.LoadScene("LevelSelect");
+        LevelMenu.ResetProgress();
     }
-
     public void ContinueGame()
     {
         int unlocked = PlayerPrefs.GetInt("UnlockedLevel", 1);

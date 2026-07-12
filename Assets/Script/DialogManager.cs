@@ -130,6 +130,16 @@ public class DialogManager : MonoBehaviour
 
     void EndCutscene()
     {
+        // Ambil level yang sedang dimainkan
+        int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+
+        // Tandai bahwa cutscene level ini sudah selesai ditonton
+        PlayerPrefs.SetInt($"SudahNontonCutscene{currentLevel}", 1);
+        PlayerPrefs.Save();
+
+        Debug.Log($"[DialogManager] Cutscene Level {currentLevel} selesai.");
+
+        // Masuk ke scene berikutnya
         SceneManager.LoadScene(nextScene);
     }
 }

@@ -6,6 +6,15 @@ public class LevelMenu : MonoBehaviour
 {
     [Header("Buttons Level 1-5")]
     public Button[] buttons;
+    [System.Serializable]
+    public class SceneMapping
+    {
+        public string levelScene;
+        public string cutsceneScene;
+    }
+
+[Header("Scene Mapping")]
+public SceneMapping[] sceneMappings;
 
     private void Awake()
     {
@@ -28,45 +37,44 @@ public class LevelMenu : MonoBehaviour
         Debug.Log($"[LevelMenu] Berhasil mengaktifkan {countActivated} tombol level di UI.");
     }
 
-    public void OpenLevel(int levelId)
+   public void OpenLevel(int levelId)
     {
-        ButtonSound.Instance.PlayClick();
-        Debug.Log($"[LevelMenu] Tombol Level {levelId} KLIKS! Mencoba memproses rute scene...");
-
-        // Simpan level yang sedang dimainkan
-        PlayerPrefs.SetInt("CurrentLevel", levelId);
-        PlayerPrefs.Save();
-        Debug.Log($"[LevelMenu] PlayerPrefs 'CurrentLevel' disimpan dengan nilai: {levelId}");
-
-        // 🎬 LOGIKA KHUSUS UNTUK LEVEL 1 (DETEKSI CUTSCENE)
-        if (levelId == 1)
+        if (ButtonSound.Instance != null)
         {
-            // Cek apakah player sudah pernah nonton cutscene ini (0 = belum, 1 = sudah)
-            int sudahNonton = PlayerPrefs.GetInt("SudahNontonCutscene1", 0);
-
-            if (sudahNonton == 0)
-            {
-                Debug.Log("[LevelMenu] Player belum nonton cutscene / pasca reset. Memuat Cutscene: cutscene1");
-
-                // Tandai bahwa player sudah nonton, jadi kalau dia ngulang Level 1 nggak perlu nonton lagi
-                PlayerPrefs.SetInt("SudahNontonCutscene1", 1);
-                PlayerPrefs.Save();
-
-                SceneManager.LoadScene("cutscene1");
-                return; // Berhenti di sini, jangan lanjut load level 1 langsung
-            }
-            else
-            {
-                Debug.Log("[LevelMenu] Player sudah pernah nonton cutscene. Langsung masuk ke Level 1...");
-            }
+            ButtonSound.Instance.PlayClick();
         }
 
-        // Jalur Standar / Alur Level Lainnya (Menggunakan huruf kecil sesuai nama asset)
-        string sceneToLoad = "level" + levelId;
-        Debug.Log($"[LevelMenu] Memuat Scene Standar: {sceneToLoad}");
-        SceneManager.LoadScene(sceneToLoad);
-    }
+        Debug.Log($"[LevelMenu] Tombol Level {levelId} diklik.");
 
+        PlayerPrefs.SetInt("CurrentLevel", levelId);
+        PlayerPrefs.Save();
+
+        if(levelId <= 0 || levelId > sceneMappings.Length)
+        {
+            Debug.LogError("Level tidak valid!");
+            return;
+        }
+
+        SceneMapping mapping = sceneMappings[levelId - 1];
+
+        string cutsceneKey = $"SudahNontonCutscene{levelId}";
+
+        bool sudahNonton =
+            PlayerPrefs.GetInt(cutsceneKey, 0) == 1;
+
+        if(!sudahNonton)
+        {
+            Debug.Log($"Load Cutscene : {mapping.cutsceneScene}");
+
+            SceneManager.LoadScene(mapping.cutsceneScene);
+        }
+        else
+        {
+            Debug.Log("Cutscene sudah pernah ditonton.");
+
+            SceneManager.LoadScene(mapping.levelScene);
+        }
+    }
     public static void UnlockCurrentLevelNext()
     {
         int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
@@ -89,7 +97,10 @@ public class LevelMenu : MonoBehaviour
 
     public static void ResetProgress()
     {
-        ButtonSound.Instance.PlayClick();
+        if (ButtonSound.Instance != null)
+        {
+            ButtonSound.Instance.PlayClick();
+        }
         Debug.Log("[LevelMenu] Fungsi ResetProgress() dipanggil secara statik!");
 
         // 🧼 1. RESET PROGRESS UTAMA BAWAAN TIM
@@ -97,7 +108,11 @@ public class LevelMenu : MonoBehaviour
         PlayerPrefs.SetInt("CurrentLevel", 1);
 
         // 🧼 2. RESET PENANDA CUTSCENE AGAR MUNCUL LAGI SAAT MENCET LEVEL 1
-        PlayerPrefs.SetInt("SudahNontonCutscene1", 0);
+       // Reset seluruh status cutscene
+        for (int i = 1; i <= 5; i++)
+        {
+            PlayerPrefs.DeleteKey($"SudahNontonCutscene{i}");
+        }
 
         // 🧼 3. RESET TOTAL POIN GLOBAL & REWARD TOKO RAHMA
         PlayerPrefs.DeleteKey("TotalPoinGlobal");
@@ -132,7 +147,7 @@ public class LevelMenu : MonoBehaviour
         // Pastikan level saat ini di-unlock sebelum berpindah ke WinCondition
         UnlockCurrentLevelNext();
 
-        SceneManager.LoadScene("WinCondition");
+        SceneManager.LoadScene("cutscene8");
     }
 
     // Instance wrapper bila dipanggil dari komponen non-statik
@@ -143,7 +158,10 @@ public class LevelMenu : MonoBehaviour
 
     public void KembaliKeMainMenu()
     {
-        ButtonSound.Instance.PlayClick();
+        if (ButtonSound.Instance != null)
+        {
+            ButtonSound.Instance.PlayClick();
+        }
         Debug.Log("[LevelMenu] Tombol Back diklik! Langsung memuat scene: mainMenu");
         SceneManager.LoadScene("mainMenu");
     }
