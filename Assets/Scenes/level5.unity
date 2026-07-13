@@ -3186,10 +3186,10 @@ MonoBehaviour:
   - {fileID: 38773140}
   - {fileID: 1361567489}
   - {fileID: 417231936}
-  trashCount: 1
+  trashCount: 20
   spawnYOffset: 0.1
   minDistanceBetweenTrash: 1
-  maxSpawnAttempts: 1
+  maxSpawnAttempts: 20
   useRaycastToGround: 1
   groundLayer:
     serializedVersion: 2

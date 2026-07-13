@@ -2208,10 +2208,10 @@ MonoBehaviour:
   - {fileID: 928832529}
   - {fileID: 1093677690}
   - {fileID: 1979575775}
-  trashCount: 1
+  trashCount: 10
   spawnYOffset: 0.1
   minDistanceBetweenTrash: 5
-  maxSpawnAttempts: 20
+  maxSpawnAttempts: 10
   useRaycastToGround: 1
   groundLayer:
     serializedVersion: 2
