@@ -50,6 +50,7 @@ public class MonsterHealth : MonoBehaviour
 
     private Animator animator;
     private MonsterAI monsterAI;
+    private MonsterAudio monsterAudio;
     private CharacterController characterController;
     private Collider monsterCollider;
     private Rigidbody rigidbodyComponent;
@@ -73,6 +74,7 @@ public class MonsterHealth : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
         monsterAI = GetComponent<MonsterAI>();
+        monsterAudio = GetComponent<MonsterAudio>();
         characterController = GetComponent<CharacterController>();
         monsterCollider = GetComponent<Collider>();
         rigidbodyComponent = GetComponent<Rigidbody>();
@@ -126,6 +128,8 @@ public class MonsterHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (isDead) return;
+
+        monsterAudio?.PlayHit();
 
 
 
@@ -317,6 +321,7 @@ public class MonsterHealth : MonoBehaviour
 
 
         isDead = true;
+        monsterAudio?.PlayDeath();
         currentHealth = 0;
 
 

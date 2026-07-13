@@ -35,6 +35,7 @@ public class MonsterAI : MonoBehaviour
     private MonsterState currentState;
     private Animator animator;
     private CharacterController characterController;
+    private MonsterAudio monsterAudio;
 
     private Vector3 startPosition;
     private Vector3 wanderTarget;
@@ -42,6 +43,7 @@ public class MonsterAI : MonoBehaviour
     private float stateTimer;
     private float attackTimer;
     private float verticalVelocity;
+    private bool isMoving;
 
     private PlayerHealth playerHealth;
 
@@ -49,6 +51,7 @@ public class MonsterAI : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        monsterAudio = GetComponent<MonsterAudio>();
 
         startPosition = transform.position;
         PickNewWanderTarget();
@@ -221,6 +224,8 @@ public class MonsterAI : MonoBehaviour
                 animator.SetTrigger("Attack");
             }
 
+            monsterAudio?.PlayAttack();
+
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(attackDamage);
@@ -313,10 +318,19 @@ public class MonsterAI : MonoBehaviour
 
     void SetMoving(bool moving)
     {
+        if (isMoving == moving)
+        {
+            return;
+        }
+
+        isMoving = moving;
+
         if (animator != null)
         {
             animator.SetBool("isMoving", moving);
         }
+
+        monsterAudio?.SetMoving(moving);
     }
 
     void OnDrawGizmosSelected()
