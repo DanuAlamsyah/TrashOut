@@ -121,7 +121,7 @@ public SceneMapping[] sceneMappings;
 
         // 🧼 4. RESET STATUS TOMBOL BIAR GAK AUTO-HANGUS (BISA DIBELI LAGI)
         PlayerPrefs.DeleteKey("Hati1_Terbeli");
-        PlayerPrefs.DeleteKey("Senjata_Terbeli");
+        PlayerPrefs.DeleteKey("Weapon_Upgraded");
         PlayerPrefs.DeleteKey("Hati2_Terbeli");
 
         // 🧼 5. RESET REKOR SKOR MAKSIMAL TIAP SCENE SORTIR

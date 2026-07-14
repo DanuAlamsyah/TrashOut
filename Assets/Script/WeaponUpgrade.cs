@@ -14,13 +14,20 @@ public class WeaponUpgrade : MonoBehaviour
 
     void Start()
     {
-        // Mengecek apakah pemain sudah membeli upgrade di toko sebelumnya
+        Debug.Log("Weapon_Upgraded = " +
+            PlayerPrefs.GetInt("Weapon_Upgraded", 0));
+
+        Debug.Log("Damage Upgrade Awal = " + damageUpgrade);
+        Debug.Log("FireRate Upgrade Awal = " + fireRateUpgrade);
+
         if (PlayerPrefs.GetInt("Weapon_Upgraded", 0) == 1)
         {
-            // Jika sudah dibeli, otomatis aktifkan kedua efek upgrade ini
             UpgradeFireRate();
             UpgradeDamage();
         }
+
+        Debug.Log("Damage Upgrade Akhir = " + damageUpgrade);
+        Debug.Log("FireRate Upgrade Akhir = " + fireRateUpgrade);
     }
 
     public void UpgradeFireRate()
