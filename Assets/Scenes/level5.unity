@@ -4148,7 +4148,7 @@ MonoBehaviour:
   collectedTrash: 0
   trashCounterText: {fileID: 1110521199}
   interactText: {fileID: 1287786779}
-  nextSceneName: 
+  nextSceneName: cutscene8
 --- !u!1001 &287564302
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -35,14 +35,14 @@ public class SampahMinigame : MonoBehaviour
             // Jika lolos sampai ujung, hancurkan objeknya
             if (Vector3.Distance(transform.position, targetAkhir.position) < 0.5f)
             {
-                // 💥 TAMBAHAN KHUSUS LEVEL 4: Cek jika yang lolos ke ujung adalah BOM!
-                if (gameObject.CompareTag("Bom"))
-                {
-                    if (GameManagerSortir4.Instance != null)
-                    {
-                        GameManagerSortir4.Instance.LedakanBomGameOver();
-                    }
-                }
+                // // 💥 TAMBAHAN KHUSUS LEVEL 4: Cek jika yang lolos ke ujung adalah BOM!
+                // if (gameObject.CompareTag("Bom"))
+                // {
+                //     if (GameManagerSortir4.Instance != null)
+                //     {
+                //         GameManagerSortir4.Instance.LedakanBomGameOver();
+                //     }
+                // }
 
                 Destroy(gameObject);
             }
@@ -52,6 +52,16 @@ public class SampahMinigame : MonoBehaviour
     // --- MEKANIK DRAG AND DROP 3D ---
     void OnMouseDown()
     {
+        if (gameObject.CompareTag("Bom"))
+    {
+        if (GameManagerSortir4.Instance != null)
+        {
+            GameManagerSortir4.Instance.LedakanBomGameOver();
+        }
+
+        Destroy(gameObject);
+        return;
+    }
         sedangDiDrag = true;
         jarakKeKamera = kameraUtama.WorldToScreenPoint(gameObject.transform.position).z;
         

@@ -209,16 +209,11 @@ public class GameManagerSortir4 : MonoBehaviour
     // --- FUNGSI TRANSISI YANG SUDAH DIPERBARUI ---
     void SelesaiDanKembaliKeGameUtama(bool menang)
     {
-        // Tentukan scene tujuan berdasarkan menang atau kalah
-        if (GameManager.Instance != null)
+        if (GameManager.Instance != null && menang)
         {
             GameManager.Instance.UnlockNextLevel();
+        }
 
-            SceneManager.LoadScene("LevelSelect");
-        }
-        else
-        {
-            SceneManager.LoadScene("LevelSelect");
-        }
+        SceneManager.LoadScene("LevelSelect");
     }
 }
