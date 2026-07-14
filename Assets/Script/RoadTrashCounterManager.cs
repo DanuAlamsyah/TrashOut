@@ -51,18 +51,7 @@ public class RoadTrashCounterManager : MonoBehaviour
 
         if (collectedTrash >= totalTrash)
         {
-            Debug.Log("Semua sampah sudah dikumpulkan! Pindah ke: " + nextSceneName);
-            
-            // --- UBAH BAGIAN INI ---
-            if (GameManager.Instance != null)
-            {
-                // Kirim nama scene yang sudah diatur di Inspector ke GameManager
-                GameManager.Instance.GoToPilahSampah(nextSceneName);
-            }
-            else
-            {
-                Debug.LogWarning("GameManager tidak ditemukan di scene!");
-            }
+            CheckLevelComplete();
         }
     }
 
@@ -71,6 +60,24 @@ public class RoadTrashCounterManager : MonoBehaviour
         if (interactText != null)
         {
             interactText.SetActive(show);
+        }
+    }
+
+    public void CheckLevelComplete()
+    {
+        bool allMonsterDead =
+            MonsterCounter.Instance == null ||
+            MonsterCounter.Instance.IsAllMonsterDead();
+
+        if (collectedTrash >= totalTrash &&
+            allMonsterDead)
+        {
+            Debug.Log("Semua syarat level terpenuhi!");
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GoToPilahSampah(nextSceneName);
+            }
         }
     }
 

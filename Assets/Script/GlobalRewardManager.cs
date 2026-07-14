@@ -79,7 +79,7 @@ public class GlobalRewardManager : MonoBehaviour
         }
 
         // ==========================================
-        // 🔒 LOGIKA UNTUK ITEM 2: UPGRADE SENJATA (250 POIN) -> ✨ SUDAH DIPERBAIKI VISUALNYA
+        // 🔒 LOGIKA UNTUK ITEM 2: UPGRADE SENJATA (200 POIN) -> ✨ SUDAH DIPERBAIKI VISUALNYA
         // ==========================================
         if (PlayerPrefs.GetInt("Weapon_Upgraded", 0) == 1) 
         {
@@ -88,7 +88,7 @@ public class GlobalRewardManager : MonoBehaviour
         }
         else
         {
-            if (totalPoinTabungan >= 250) // Pengecekan visual diubah ke 250
+            if (totalPoinTabungan >= 200) // Pengecekan visual diubah ke 200
             {
                 tombolUpgradeSenjata.interactable = true;
                 if (gembokUpgradeSenjata != null) gembokUpgradeSenjata.SetActive(false);
@@ -154,9 +154,9 @@ public class GlobalRewardManager : MonoBehaviour
     public void TukarUpgradeSenjata()
     {
         if (ButtonSound.Instance != null) ButtonSound.Instance.PlayClick();
-        if (totalPoinTabungan < 250) return;
+        if (totalPoinTabungan < 200) return;
 
-        totalPoinTabungan -= 250;
+        totalPoinTabungan -= 200;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
         PlayerPrefs.SetInt("Weapon_Upgraded", 1);
         PlayerPrefs.Save();

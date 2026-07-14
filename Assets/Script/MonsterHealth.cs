@@ -41,6 +41,7 @@ public class MonsterHealth : MonoBehaviour
 
     private int currentHealth;
     private bool isDead = false;
+    private bool registered = false;
 
 
     private Renderer[] renderers;
@@ -63,6 +64,12 @@ public class MonsterHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+
+        if (MonsterCounter.Instance != null && !registered)
+        {
+            MonsterCounter.Instance.RegisterMonster();
+            registered = true;
+        }
 
 
         // Sembunyikan health bar saat awal
@@ -141,7 +148,6 @@ public class MonsterHealth : MonoBehaviour
             " terkena damage. HP: " +
             currentHealth
         );
-
 
 
         // Munculkan health bar
@@ -392,6 +398,18 @@ public class MonsterHealth : MonoBehaviour
             characterController.enabled = false;
         }
 
+        if (MonsterCounter.Instance != null)
+        {
+            MonsterCounter.Instance.MonsterKilled();
+        }
+        
+        RoadTrashCounterManager roadTrashCounterManager =
+            FindObjectOfType<RoadTrashCounterManager>();
+        
+        if (roadTrashCounterManager != null)
+        {
+            roadTrashCounterManager.CheckLevelComplete();
+        }
 
 
         if (monsterCollider != null)
