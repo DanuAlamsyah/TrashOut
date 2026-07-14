@@ -1833,7 +1833,7 @@ PrefabInstance:
     - target: {fileID: 5030995060192657177, guid: 38cec26c05d5a0c48ba8b226165d370b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 5030995060192657177, guid: 38cec26c05d5a0c48ba8b226165d370b,
         type: 3}
@@ -1879,6 +1879,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Beer Can Red Crushed
+      objectReference: {fileID: 0}
+    - target: {fileID: 5102017246056220404, guid: 38cec26c05d5a0c48ba8b226165d370b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5919208273832733681, guid: 38cec26c05d5a0c48ba8b226165d370b, type: 3}
@@ -1947,7 +1952,7 @@ PrefabInstance:
     - target: {fileID: 3063691178546942967, guid: 18b94829f32bc194d9cf03aa6c43561c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 3063691178546942967, guid: 18b94829f32bc194d9cf03aa6c43561c,
         type: 3}
@@ -2023,6 +2028,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pint Glass
+      objectReference: {fileID: 0}
+    - target: {fileID: 8412863031436712038, guid: 18b94829f32bc194d9cf03aa6c43561c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 400499597261922955, guid: 18b94829f32bc194d9cf03aa6c43561c, type: 3}
@@ -7571,7 +7581,7 @@ PrefabInstance:
     - target: {fileID: 6913623427527270190, guid: 8330d6a315e0fbb47a53be06e566ae6f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 6913623427527270190, guid: 8330d6a315e0fbb47a53be06e566ae6f,
         type: 3}
@@ -7617,6 +7627,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wine Bottle Green Broke 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322863303335674192, guid: 8330d6a315e0fbb47a53be06e566ae6f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2249753185411240690, guid: 8330d6a315e0fbb47a53be06e566ae6f, type: 3}
@@ -8796,6 +8811,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wine Glass
       objectReference: {fileID: 0}
+    - target: {fileID: 3016437080816719917, guid: f6fab6cd91c4f5c44a9dcff4b0ae3ca4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8617810735975715772, guid: f6fab6cd91c4f5c44a9dcff4b0ae3ca4,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -8819,7 +8839,7 @@ PrefabInstance:
     - target: {fileID: 8617810735975715772, guid: f6fab6cd91c4f5c44a9dcff4b0ae3ca4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 8617810735975715772, guid: f6fab6cd91c4f5c44a9dcff4b0ae3ca4,
         type: 3}
@@ -14994,6 +15014,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Beer Can Red
       objectReference: {fileID: 0}
+    - target: {fileID: 3230034147011233538, guid: 3d33348b9920c1f4e953defda3545a6a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4536291819999006714, guid: 3d33348b9920c1f4e953defda3545a6a,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -15017,7 +15042,7 @@ PrefabInstance:
     - target: {fileID: 4536291819999006714, guid: 3d33348b9920c1f4e953defda3545a6a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 4536291819999006714, guid: 3d33348b9920c1f4e953defda3545a6a,
         type: 3}
@@ -16789,6 +16814,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mug White Broken
       objectReference: {fileID: 0}
+    - target: {fileID: 1782649407311841039, guid: 6e76fda8b4b9c214e815d61ddf722aa8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6137156663951666328, guid: 6e76fda8b4b9c214e815d61ddf722aa8,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -16812,7 +16842,7 @@ PrefabInstance:
     - target: {fileID: 6137156663951666328, guid: 6e76fda8b4b9c214e815d61ddf722aa8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 6137156663951666328, guid: 6e76fda8b4b9c214e815d61ddf722aa8,
         type: 3}
@@ -19778,6 +19808,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soda Can Red Crushed
       objectReference: {fileID: 0}
+    - target: {fileID: 3230034147011233538, guid: b77571231801e2c47ba0f08c87dbbdf2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4536291819999006714, guid: b77571231801e2c47ba0f08c87dbbdf2,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -19801,7 +19836,7 @@ PrefabInstance:
     - target: {fileID: 4536291819999006714, guid: b77571231801e2c47ba0f08c87dbbdf2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 4536291819999006714, guid: b77571231801e2c47ba0f08c87dbbdf2,
         type: 3}
@@ -20650,7 +20685,7 @@ PrefabInstance:
     - target: {fileID: 6988246613009678934, guid: 1710829442f9c9d4eb7b72a86cb006b8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 6988246613009678934, guid: 1710829442f9c9d4eb7b72a86cb006b8,
         type: 3}
@@ -20696,6 +20731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Soda Can Orange Crushed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276625273990236846, guid: 1710829442f9c9d4eb7b72a86cb006b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -1682180740487042471, guid: 1710829442f9c9d4eb7b72a86cb006b8, type: 3}
@@ -22591,6 +22631,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Broken Plate
       objectReference: {fileID: 0}
+    - target: {fileID: 2145317133613297876, guid: 4d623f0f3b0a1864f8e1dfe22751e4e1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5862112844071753809, guid: 4d623f0f3b0a1864f8e1dfe22751e4e1,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -22614,7 +22659,7 @@ PrefabInstance:
     - target: {fileID: 5862112844071753809, guid: 4d623f0f3b0a1864f8e1dfe22751e4e1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 5862112844071753809, guid: 4d623f0f3b0a1864f8e1dfe22751e4e1,
         type: 3}
@@ -25017,6 +25062,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vodka Bottle with label
       objectReference: {fileID: 0}
+    - target: {fileID: 4761393018483043083, guid: d43ac3b4de4cbc345a113860f8977fb2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6643357819061642998, guid: d43ac3b4de4cbc345a113860f8977fb2,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -25040,7 +25090,7 @@ PrefabInstance:
     - target: {fileID: 6643357819061642998, guid: d43ac3b4de4cbc345a113860f8977fb2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 6643357819061642998, guid: d43ac3b4de4cbc345a113860f8977fb2,
         type: 3}
@@ -25677,7 +25727,7 @@ PrefabInstance:
     - target: {fileID: 5287371669910090882, guid: 8c044803a69471e439f6be56b9f30f15,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 5287371669910090882, guid: 8c044803a69471e439f6be56b9f30f15,
         type: 3}
@@ -25753,6 +25803,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wine Bottle Green with Label 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287776600339200383, guid: 8c044803a69471e439f6be56b9f30f15,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -3114425992390493902, guid: 8c044803a69471e439f6be56b9f30f15, type: 3}
@@ -26239,6 +26294,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Broken Pottery 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2033160906336582249, guid: 92d7833af3c71c04e99615a4db4adfeb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8682494056855471041, guid: 92d7833af3c71c04e99615a4db4adfeb,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -26262,7 +26322,7 @@ PrefabInstance:
     - target: {fileID: 8682494056855471041, guid: 92d7833af3c71c04e99615a4db4adfeb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 60.1
       objectReference: {fileID: 0}
     - target: {fileID: 8682494056855471041, guid: 92d7833af3c71c04e99615a4db4adfeb,
         type: 3}
