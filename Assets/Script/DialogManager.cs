@@ -32,10 +32,15 @@ public class DialogManager : MonoBehaviour
     [Header("Next Scene")]
     public string nextScene;
 
+    [Header("Hint")]
+    public GameObject nextHint;
+
    void Start()
     {
         eqoPanel.SetActive(false);
         verelPanel.SetActive(false);
+        
+        nextHint.SetActive(false);
     }
 
     public void StartDialogue()
@@ -53,6 +58,8 @@ public class DialogManager : MonoBehaviour
 
     void ShowDialogue()
     {
+        nextHint.SetActive(false);
+
         string speaker = dialogues[currentIndex].speaker;
         string sentence = dialogues[currentIndex].sentence;
 
@@ -95,6 +102,8 @@ public class DialogManager : MonoBehaviour
         }
 
         isTyping = false;
+
+        nextHint.SetActive(true);
     }
 
     void NextDialogue()
@@ -113,6 +122,9 @@ public class DialogManager : MonoBehaviour
             }
 
             isTyping = false;
+
+            nextHint.SetActive(true);
+
             return;
         }
 
