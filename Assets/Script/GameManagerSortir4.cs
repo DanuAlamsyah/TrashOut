@@ -192,10 +192,17 @@ public class GameManagerSortir4 : MonoBehaviour
         UpdateTeksWaktuLayar(); 
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
 
-        // 🔒 1. Panggil fungsi tim di background
+        // 🌟 KONDISI MENANG SORTIR 4: Berhasil bertahan dari bom, 
+        // BARU BOLEH buka gembok Level 5 (Final)!
+        int levelTerbuka = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        if (levelTerbuka < 5) 
+        {
+            PlayerPrefs.SetInt("UnlockedLevel", 5);
+            PlayerPrefs.Save();
+        }
+
         if (GameManager.Instance != null) GameManager.Instance.UnlockNextLevel();
 
-        // 💥 2. Panggil Toko Reward (Sesuaikan string belakangnya jadi "sortir4")
         if (GlobalRewardManager.Instance != null)
         {
             GlobalRewardManager.Instance.MunculkanPopUpReward(skorSaatIni, "sortir4");
@@ -206,14 +213,33 @@ public class GameManagerSortir4 : MonoBehaviour
         }
     }
 
-    // --- FUNGSI TRANSISI YANG SUDAH DIPERBARUI ---
     void SelesaiDanKembaliKeGameUtama(bool menang)
     {
-        if (GameManager.Instance != null && menang)
+        if (menang)
         {
-            GameManager.Instance.UnlockNextLevel();
+            // Jika menang dipanggil dari tempat lain
+            int levelTerbuka = PlayerPrefs.GetInt("UnlockedLevel", 1);
+            if (levelTerbuka < 5)
+            {
+                PlayerPrefs.SetInt("UnlockedLevel", 5);
+                PlayerPrefs.Save();
+            }
+            SceneManager.LoadScene("LevelSelect");
         }
+        else
+        {
+            // 💥 KONDISI KALAH KENA BOM DI SORTIR 4:
+            // Amankan data biar Level 4 UTAMA tetap terbuka (bisa diklik lagi),
+            // tapi Level 5 HARUS TETAP KEKUNCI karena player gagal!
+            int levelTerbuka = PlayerPrefs.GetInt("UnlockedLevel", 1);
+            if (levelTerbuka < 4)
+            {
+                PlayerPrefs.SetInt("UnlockedLevel", 4);
+                PlayerPrefs.Save();
+            }
 
-        SceneManager.LoadScene("LevelSelect");
+            // Lempar ke LevelSelect agar player ngulang main dari tombol Level 4
+            SceneManager.LoadScene("LevelSelect"); 
+        }
     }
 }

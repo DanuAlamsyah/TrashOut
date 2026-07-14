@@ -79,16 +79,16 @@ public class GlobalRewardManager : MonoBehaviour
         }
 
         // ==========================================
-        // 🔒 LOGIKA UNTUK ITEM 2: UPGRADE SENJATA (130 POIN)
+        // 🔒 LOGIKA UNTUK ITEM 2: UPGRADE SENJATA (200 POIN) -> ✨ SUDAH DIPERBAIKI VISUALNYA
         // ==========================================
-        if (PlayerPrefs.GetInt("Weapon_Upgraded", 0) == 1) // Menggunakan key baru
+        if (PlayerPrefs.GetInt("Weapon_Upgraded", 0) == 1) 
         {
             tombolUpgradeSenjata.interactable = false; 
             if (gembokUpgradeSenjata != null) gembokUpgradeSenjata.SetActive(false);
         }
         else
         {
-            if (totalPoinTabungan >= 130)
+            if (totalPoinTabungan >= 200) // Pengecekan visual diubah ke 200
             {
                 tombolUpgradeSenjata.interactable = true;
                 if (gembokUpgradeSenjata != null) gembokUpgradeSenjata.SetActive(false);
@@ -101,7 +101,7 @@ public class GlobalRewardManager : MonoBehaviour
         }
 
         // ==========================================
-        // 🔒 LOGIKA UNTUK ITEM 3: ARMOR LV 2 (200 POIN)
+        // 🔒 LOGIKA UNTUK ITEM 3: ARMOR LV 2 (130 POIN) -> ✨ SUDAH DIPERBAIKI VISUALNYA
         // ==========================================
         if (PlayerPrefs.GetInt("Hati2_Terbeli", 0) == 1)
         {
@@ -110,7 +110,7 @@ public class GlobalRewardManager : MonoBehaviour
         }
         else
         {
-            if (totalPoinTabungan >= 200)
+            if (totalPoinTabungan >= 130) // Pengecekan visual diubah ke 130
             {
                 tombolHati2.interactable = true;
                 if (gembokHati2 != null) gembokHati2.SetActive(false);
@@ -125,7 +125,7 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void TukarHati1()
     {
-        ButtonSound.Instance.PlayClick();
+        if (ButtonSound.Instance != null) ButtonSound.Instance.PlayClick();
         if (totalPoinTabungan < 70) return;
         totalPoinTabungan -= 70;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
@@ -139,9 +139,9 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void TukarHati2()
     {
-        ButtonSound.Instance.PlayClick();
-        if (totalPoinTabungan < 200) return;
-        totalPoinTabungan -= 200;
+        if (ButtonSound.Instance != null) ButtonSound.Instance.PlayClick();
+        if (totalPoinTabungan < 130) return;
+        totalPoinTabungan -= 130;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
         PlayerPrefs.SetInt("NilaiArmorPemain", 15);
         PlayerPrefs.SetInt("Hati2_Terbeli", 1);
@@ -151,16 +151,13 @@ public class GlobalRewardManager : MonoBehaviour
         TombolSkipAtauLanjut();
     }
 
-    // FUNGSI BARU UNTUK UPGRADE SENJATA
     public void TukarUpgradeSenjata()
     {
-        ButtonSound.Instance.PlayClick();
-        if (totalPoinTabungan < 130) return;
+        if (ButtonSound.Instance != null) ButtonSound.Instance.PlayClick();
+        if (totalPoinTabungan < 200) return;
 
-        totalPoinTabungan -= 130;
+        totalPoinTabungan -= 200;
         PlayerPrefs.SetInt("TotalPoinGlobal", totalPoinTabungan);
-
-        // Menyimpan status bahwa senjata sudah di-upgrade ke memori perangkat
         PlayerPrefs.SetInt("Weapon_Upgraded", 1);
         PlayerPrefs.Save();
 
@@ -170,7 +167,7 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void TombolSkipAtauLanjut()
     {
-        ButtonSound.Instance.PlayClick();
+        if (ButtonSound.Instance != null) ButtonSound.Instance.PlayClick();
         if (!string.IsNullOrEmpty(namaSceneBerikutnya))
         {
             SceneManager.LoadScene(namaSceneBerikutnya);
@@ -183,7 +180,7 @@ public class GlobalRewardManager : MonoBehaviour
 
     public void TombolKembaliKeLevelSelect()
     {
-        ButtonSound.Instance.PlayClick();
+        if (ButtonSound.Instance != null) ButtonSound.Instance.PlayClick();
         if (GameManager.Instance != null)
         {
             GameManager.Instance.BackToLevelSelect();

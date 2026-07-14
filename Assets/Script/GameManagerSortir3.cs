@@ -158,10 +158,18 @@ public class GameManagerSortir3 : MonoBehaviour
         UpdateTeksWaktuLayar(); 
         totalKoinDidapat = skorSaatIni * konversiSkorKeKoin;
 
-        // 🔒 1. Panggil fungsi tim di background
+        // 🌟 KONDISI MENANG: Karena berhasil bertahan sampai waktu habis, 
+        // BARU BOLEH buka gembok Level 4 game utama!
+        int levelTerbuka = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        if (levelTerbuka < 4) 
+        {
+            PlayerPrefs.SetInt("UnlockedLevel", 4);
+            PlayerPrefs.Save();
+        }
+
         if (GameManager.Instance != null) GameManager.Instance.UnlockNextLevel();
 
-        // 💥 2. Panggil Toko Reward (Sesuaikan string belakangnya jadi "sortir2")
+        // Panggil Toko Reward Sortir 3
         if (GlobalRewardManager.Instance != null)
         {
             GlobalRewardManager.Instance.MunculkanPopUpReward(skorSaatIni, "sortir3");
@@ -172,18 +180,19 @@ public class GameManagerSortir3 : MonoBehaviour
         }
     }
 
-    // --- UBAH FUNGSI INI ---
+    // Fungsi ini dipanggil kalau player keluar atau ada kondisi gagal di sortir 3
     void SelesaiDanKembaliKeGameUtama()
     {
-        if (GameManager.Instance != null)
+        // 🌟 KONDISI KALAH/NGULANG: Pastikan Level 3 tetap terbuka (jangan turun ke 1 atau 2), 
+        // tapi Level 4 JANGAN DI-UNLOCK DULU!
+        int levelTerbuka = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        if (levelTerbuka < 3) 
         {
-            GameManager.Instance.UnlockNextLevel();
+            PlayerPrefs.SetInt("UnlockedLevel", 3);
+            PlayerPrefs.Save();
+        }
 
-            SceneManager.LoadScene("LevelSelect");
-        }
-        else
-        {
-            SceneManager.LoadScene("LevelSelect");
-        }
+        // Langsung lempar ke select level biar dia ngulang klik Level 3
+        SceneManager.LoadScene("LevelSelect");
     }
 }

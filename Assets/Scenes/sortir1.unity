@@ -535,8 +535,8 @@ MonoBehaviour:
   - {fileID: 7311506559397099704, guid: 23fc664a07a915a48a9ce1bb54a2187a, type: 3}
   - {fileID: 2254700094436937765, guid: fb6c29cce80e3144e9e0adfb7a8a2840, type: 3}
   - {fileID: 3230034147011233538, guid: 9cc82edf5bfb8ce45b41303a3c99f3d1, type: 3}
-  jedaSpawn: 2
-  waktuBermain: 45
+  jedaSpawn: 1.8
+  waktuBermain: 30
   skorSaatIni: 0
   totalKoinDidapat: 0
   konversiSkorKeKoin: 1
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Upgrade Senjata: 130 poin'
+  m_text: 'Upgrade Senjata: 200 poin'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -3318,7 +3318,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Armor Besi : 200 poin'
+  m_text: 'Armor Besi : 130 poin'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
