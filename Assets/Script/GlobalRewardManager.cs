@@ -181,9 +181,12 @@ public class GlobalRewardManager : MonoBehaviour
         }
     }
 
-    public void TombolKembaliKeLevelSelect()
+   public void TombolKembaliKeLevelSelect()
     {
         ButtonSound.Instance.PlayClick();
+
+        LevelMenu.UnlockCurrentLevelNext();
+
         if (GameManager.Instance != null)
         {
             GameManager.Instance.BackToLevelSelect();
